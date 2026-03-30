@@ -1,0 +1,104 @@
+@if (result) {
+  <div class="battle-result">
+    <div class="result-banner" [class]="winner">
+      <h2>
+        @if (winner === 'player') { Victory! }
+        @else if (winner === 'opponent') { Defeat }
+        @else { Draw }
+      </h2>
+      <div class="final-score">
+        <span class="player-power">{{ playerPower }}</span>
+        <span class="vs">vs</span>
+        <span class="opponent-power">{{ opponentPower }}</span>
+      </div>
+    </div>
+
+    <div class="breakdowns">
+      <div class="breakdown-section">
+        <h3>Player Power Breakdown</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Card</th>
+              <th>Base</th>
+              <th>AoE</th>
+              <th>Slot</th>
+              <th>General</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (b of playerBreakdowns; track b.instanceId) {
+              <tr>
+                <td>{{ b.instanceId | slice:0:12 }}...</td>
+                <td>{{ b.basePower | number:'1.0-1' }}</td>
+                <td>{{ b.aoeBonusReceived | number:'1.0-1' }}</td>
+                <td>{{ b.slotModifier | number:'1.0-1' }}</td>
+                <td>{{ b.generalBonus | number:'1.0-1' }}</td>
+                <td class="total">{{ b.totalPower | number:'1.0-1' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <div class="breakdown-section">
+        <h3>Opponent Power Breakdown</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Card</th>
+              <th>Base</th>
+              <th>AoE</th>
+              <th>Slot</th>
+              <th>General</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (b of opponentBreakdowns; track b.instanceId) {
+              <tr>
+                <td>{{ b.instanceId | slice:0:12 }}...</td>
+                <td>{{ b.basePower | number:'1.0-1' }}</td>
+                <td>{{ b.aoeBonusReceived | number:'1.0-1' }}</td>
+                <td>{{ b.slotModifier | number:'1.0-1' }}</td>
+                <td>{{ b.generalBonus | number:'1.0-1' }}</td>
+                <td class="total">{{ b.totalPower | number:'1.0-1' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    @if (xpGains.length > 0) {
+      <div class="xp-section">
+        <h3>XP Gained</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Card</th>
+              <th>XP</th>
+              <th>Leveled Up</th>
+              <th>New Level</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (xp of xpGains; track xp.instanceId) {
+              <tr>
+                <td>{{ xp.instanceId | slice:0:12 }}...</td>
+                <td>+{{ xp.xpGained }}</td>
+                <td>{{ xp.leveledUp ? 'Yes' : 'No' }}</td>
+                <td>{{ xp.newLevel }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+
+    <div class="result-actions">
+      <a routerLink="/battle" class="btn">New Battle</a>
+    </div>
+  </div>
+}

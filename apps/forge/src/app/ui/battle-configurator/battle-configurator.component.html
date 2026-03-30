@@ -1,0 +1,55 @@
+<div class="battle-configurator">
+  <h2 class="section-title">Configure Battle</h2>
+
+  @if (decks().length === 0) {
+    <div class="card">
+      <p>No decks found. <a routerLink="/deck-builder">Create a deck first</a>.</p>
+    </div>
+  } @else {
+    <div class="config-form card">
+      <div class="config-row">
+        <label>Player Deck</label>
+        <select [(ngModel)]="selectedPlayerDeck">
+          <option value="" disabled>Select deck...</option>
+          @for (deck of decks(); track deck.id) {
+            <option [value]="deck.id">{{ deck.name }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="config-row">
+        <label>Opponent Deck</label>
+        <select [(ngModel)]="selectedOpponentDeck">
+          <option value="" disabled>Select deck...</option>
+          @for (deck of decks(); track deck.id) {
+            <option [value]="deck.id">{{ deck.name }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="config-row">
+        <label>Battlefield</label>
+        <select [(ngModel)]="selectedBattlefield">
+          @for (bf of battlefields(); track bf.id) {
+            <option [value]="bf.id">{{ bf.name }} ({{ bf.grid.rows }}x{{ bf.grid.cols }})</option>
+          }
+        </select>
+      </div>
+
+      <div class="config-row">
+        <label>Rules</label>
+        <select [(ngModel)]="selectedRules">
+          @for (r of rules(); track r.id) {
+            <option [value]="r.id">{{ r.name }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button class="primary" (click)="startBattle()" [disabled]="!canStart">
+          Start Battle
+        </button>
+      </div>
+    </div>
+  }
+</div>

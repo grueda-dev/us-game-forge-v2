@@ -1,0 +1,80 @@
+<div class="battle-player">
+  <div class="battle-header">
+    <h2 class="section-title">Battle — Turn {{ currentTurn() }}</h2>
+    <div class="power-display">
+      <span class="power player-power">Player: {{ playerPower() }}</span>
+      <span class="power-vs">vs</span>
+      <span class="power opponent-power">Opponent: {{ opponentPower() }}</span>
+    </div>
+  </div>
+
+  <div class="battlefields">
+    <div class="battlefield-section">
+      <h3>Opponent</h3>
+      <div class="grid" [style.grid-template-columns]="'repeat(' + gridCols + ', 1fr)'">
+        @for (slot of opponentBattlefield; track slot.slotId) {
+          <div class="slot opponent-slot" [class.occupied]="slot.isOccupied" [class.terrain]="slot.terrainType">
+            <span class="slot-terrain">{{ slot.terrainType ?? '' }}</span>
+            @if (slot.card) {
+              <span class="slot-card">{{ slot.card.name }}</span>
+              <span class="slot-power">{{ slot.card.effectivePower }}</span>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="battlefield-section">
+      <h3>Player</h3>
+      <div class="grid" [style.grid-template-columns]="'repeat(' + gridCols + ', 1fr)'">
+        @for (slot of battlefield; track slot.slotId) {
+          <div
+            class="slot player-slot"
+            [class.occupied]="slot.isOccupied"
+            [class.terrain]="slot.terrainType"
+            [class.targetable]="!slot.isOccupied && selectedCard()"
+            (click)="placeCard(slot)"
+          >
+            <span class="slot-terrain">{{ slot.terrainType ?? '' }}</span>
+            @if (slot.card) {
+              <span class="slot-card">{{ slot.card.name }}</span>
+              <span class="slot-power">{{ slot.card.effectivePower }}</span>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  @if (!battleComplete()) {
+    <div class="hand-section">
+      <h3>Your Hand (select a card, then click a slot)</h3>
+      <div class="hand">
+        @for (card of hand(); track card.instanceId.value) {
+          <div
+            class="hand-card card"
+            [class.selected]="selectedCard()?.instanceId?.value === card.instanceId.value"
+            (click)="selectCard(card)"
+          >
+            <div class="card-name">{{ card.name }}</div>
+            <div class="card-info">{{ card.faction }} {{ card.cardClass }}</div>
+            <div class="card-power">{{ card.effectivePower }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="battle-end">
+      <button class="primary" (click)="viewResults()">View Results</button>
+    </div>
+  }
+
+  <div class="battle-log">
+    <h3>Battle Log</h3>
+    <div class="log-entries">
+      @for (entry of log(); track $index) {
+        <div class="log-entry">{{ entry }}</div>
+      }
+    </div>
+  </div>
+</div>

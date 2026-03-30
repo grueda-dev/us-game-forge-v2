@@ -1,0 +1,67 @@
+<div class="deck-builder">
+  <h2 class="section-title">Deck Builder</h2>
+
+  <div class="builder-form card">
+    <div class="form-row">
+      <label>Deck Name</label>
+      <input type="text" [(ngModel)]="deckName" placeholder="e.g. Cavalry Rush" />
+    </div>
+
+    <h3>Troops ({{ totalCards() }} cards)</h3>
+
+    @for (entry of troopEntries(); track $index) {
+      <div class="troop-entry">
+        <select [ngModel]="entry.faction" (ngModelChange)="updateEntry($index, 'faction', $event)">
+          @for (f of factions; track f) {
+            <option [value]="f">{{ f }}</option>
+          }
+        </select>
+        <select [ngModel]="entry.cardClass" (ngModelChange)="updateEntry($index, 'cardClass', $event)">
+          @for (c of cardClasses; track c) {
+            <option [value]="c">{{ c }}</option>
+          }
+        </select>
+        <input
+          type="number"
+          [ngModel]="entry.quantity"
+          (ngModelChange)="updateEntry($index, 'quantity', $event)"
+          min="1"
+          max="20"
+          style="width: 60px"
+        />
+        <button (click)="removeTroopEntry($index)">Remove</button>
+      </div>
+    }
+
+    <div class="form-actions">
+      <button (click)="addTroopEntry()">+ Add Troop</button>
+      <button class="primary" (click)="saveDeck()" [disabled]="!deckName.trim() || troopEntries().length === 0">
+        Save Deck
+      </button>
+    </div>
+  </div>
+
+  @if (savedDecks().length > 0) {
+    <div class="saved-decks">
+      <h3 class="section-title">Saved Decks</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Troops</th>
+            <th>Total Cards</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (deck of savedDecks(); track deck.id) {
+            <tr>
+              <td>{{ deck.name }}</td>
+              <td>{{ deck.troopEntries.length }} types</td>
+              <td>{{ deck.troopEntries.length }} entries</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

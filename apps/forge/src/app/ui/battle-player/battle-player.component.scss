@@ -1,0 +1,167 @@
+.battle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.power-display {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.player-power { color: #4fc3f7; }
+.opponent-power { color: #ef5350; }
+.power-vs { color: #666; font-weight: 400; }
+
+.battlefields {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.battlefield-section h3 {
+  font-size: 0.85rem;
+  color: #888;
+  margin: 0 0 0.5rem;
+  text-transform: uppercase;
+}
+
+.grid {
+  display: grid;
+  gap: 4px;
+}
+
+.slot {
+  aspect-ratio: 1;
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background: #1a1a2e;
+  font-size: 0.75rem;
+  position: relative;
+
+  &.terrain {
+    background: #1a2a1e;
+  }
+
+  &.occupied {
+    border-color: #555;
+  }
+
+  &.targetable {
+    border-color: #4fc3f7;
+    cursor: pointer;
+
+    &:hover {
+      background: #16213e;
+    }
+  }
+}
+
+.slot-terrain {
+  font-size: 0.65rem;
+  color: #666;
+  position: absolute;
+  top: 2px;
+  left: 4px;
+}
+
+.slot-card {
+  font-weight: 600;
+  font-size: 0.7rem;
+}
+
+.slot-power {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #4fc3f7;
+}
+
+.opponent-slot .slot-power {
+  color: #ef5350;
+}
+
+.hand-section h3 {
+  font-size: 0.85rem;
+  color: #888;
+  margin: 0 0 0.5rem;
+}
+
+.hand {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.hand-card {
+  cursor: pointer;
+  min-width: 100px;
+  text-align: center;
+  transition: border-color 0.15s;
+
+  &.selected {
+    border-color: #4fc3f7;
+    box-shadow: 0 0 8px rgba(79, 195, 247, 0.3);
+  }
+
+  &:hover {
+    border-color: #555;
+  }
+}
+
+.card-name {
+  font-weight: 600;
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+}
+
+.card-info {
+  font-size: 0.7rem;
+  color: #888;
+  margin-bottom: 0.25rem;
+}
+
+.card-power {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #4fc3f7;
+}
+
+.battle-end {
+  text-align: center;
+  padding: 1rem;
+}
+
+.battle-log {
+  margin-top: 1.5rem;
+
+  h3 {
+    font-size: 0.85rem;
+    color: #888;
+    margin: 0 0 0.5rem;
+    text-transform: uppercase;
+  }
+}
+
+.log-entries {
+  background: #111;
+  border-radius: 4px;
+  padding: 0.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 0.75rem;
+}
+
+.log-entry {
+  padding: 0.15rem 0;
+  color: #aaa;
+}
