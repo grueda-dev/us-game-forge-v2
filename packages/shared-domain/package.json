@@ -1,0 +1,22 @@
+{
+  "name": "@game-forge/shared-domain",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pure domain rules for the army-building card game — no framework dependencies",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@game-forge/shared-schema": "*"
+  },
+  "devDependencies": {
+    "typescript": "~5.7.0",
+    "jest": "^29.0.0",
+    "ts-jest": "^29.0.0",
+    "@types/jest": "^29.0.0"
+  }
+}

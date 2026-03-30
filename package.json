@@ -1,0 +1,20 @@
+{
+  "name": "game-forge",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "npm@10.5.1",
+  "description": "Game Forge — Army Building Card Game Designer & Testing Tool",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "dev": "turbo run dev"
+  },
+  "devDependencies": {
+    "turbo": "^2"
+  }
+}

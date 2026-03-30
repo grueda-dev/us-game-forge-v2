@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "deck-config.schema.json",
+  "title": "DeckConfig",
+  "description": "Deck configuration — card selections for a playable deck",
+  "type": "object",
+  "required": ["id", "formatVersion", "name", "generalDefinitionId", "troopEntries"],
+  "properties": {
+    "id": { "type": "string" },
+    "formatVersion": { "type": "string" },
+    "name": { "type": "string" },
+    "generalDefinitionId": { "type": "string" },
+    "troopEntries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["definitionId", "quantity"],
+        "properties": {
+          "definitionId": { "type": "string" },
+          "quantity": { "type": "number", "minimum": 1 }
+        }
+      }
+    },
+    "heroEntries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["definitionId"],
+        "properties": {
+          "definitionId": { "type": "string" }
+        }
+      }
+    },
+    "relicDefinitionIds": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

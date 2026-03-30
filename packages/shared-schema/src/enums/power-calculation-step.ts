@@ -1,0 +1,6 @@
+export enum PowerCalculationStep {
+  BASE_POWER = 'BASE_POWER',
+  AOE_BONUS = 'AOE_BONUS',
+  SLOT_MODIFIER = 'SLOT_MODIFIER',
+  GENERAL_BONUS = 'GENERAL_BONUS',
+}

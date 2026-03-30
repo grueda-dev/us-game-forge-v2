@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "battlefield-config.schema.json",
+  "title": "BattlefieldConfig",
+  "description": "Battlefield layout — grid dimensions, slots, and terrain modifiers",
+  "type": "object",
+  "required": ["id", "formatVersion", "name", "grid", "slots"],
+  "properties": {
+    "id": { "type": "string" },
+    "formatVersion": { "type": "string" },
+    "name": { "type": "string" },
+    "grid": {
+      "type": "object",
+      "required": ["rows", "cols"],
+      "properties": {
+        "rows": { "type": "number", "minimum": 1 },
+        "cols": { "type": "number", "minimum": 1 }
+      }
+    },
+    "slots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["slotId", "position"],
+        "properties": {
+          "slotId": { "type": "string" },
+          "position": {
+            "type": "object",
+            "required": ["row", "col"],
+            "properties": {
+              "row": { "type": "number" },
+              "col": { "type": "number" }
+            }
+          },
+          "terrainType": { "type": ["string", "null"] },
+          "modifiers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["targetClass", "multiplier"],
+              "properties": {
+                "targetClass": { "type": "string" },
+                "multiplier": { "type": "number" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

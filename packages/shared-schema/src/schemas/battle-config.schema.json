@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "battle-config.schema.json",
+  "title": "BattleDefinition",
+  "description": "Battle configuration — links decks, battlefield, rules, and end condition",
+  "type": "object",
+  "required": ["id", "formatVersion", "name", "battlefieldConfigId", "playerDeckConfigId", "opponentDeckConfigId", "rulesConfigId", "endCondition"],
+  "properties": {
+    "id": { "type": "string" },
+    "formatVersion": { "type": "string" },
+    "name": { "type": "string" },
+    "battlefieldConfigId": { "type": "string" },
+    "playerDeckConfigId": { "type": "string" },
+    "opponentDeckConfigId": { "type": "string" },
+    "rulesConfigId": { "type": "string" },
+    "endCondition": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["ALL_SLOTS_FILLED", "TURN_LIMIT"]
+        },
+        "turnLimit": { "type": "number" }
+      }
+    }
+  }
+}
