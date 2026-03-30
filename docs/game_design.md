@@ -64,12 +64,58 @@ Game Forge will follow clean architecture principles:
 - Card play mechanics?
 
 ### Card Types
+
 #### Troop Cards
 - Base attributes: faction, class, base power value
 - Every troop card has all three attributes
 - Represents a military unit (e.g., Human Archers, Dwarf Warriors)
 - Deck can have duplicates: e.g., 3x Human Archer in same deck
 - Only ability type for troops: level-based bonuses to adjacent units (e.g., level 5 archer gives +3 power to adjacent archers)
+
+#### Hero Cards
+- Special limited-use troop cards
+- Behave like normal troops: drawn and placed on battlefield just like regular troops
+- Attributes: faction, class, base power value (like troops)
+- Limited deployments: each hero has a deployment counter
+  - Example: Hero with 3 deployments can be played in 3 different battles
+  - After final deployment is used, hero is removed from deck permanently
+- Power & acquisition:
+  - Higher power than regular troops for their acquisition level
+  - Campaign-specific rewards or purchasable (see currency system below)
+  - Hero power scales with implicit campaign difficulty
+- Abilities: Area effects for adjacent cards (like high-level troops)
+- Leveling: Heroes do NOT level up (unlike regular troops)
+- *To be defined:*
+  - Exact power scaling formula
+  - Exact area effect mechanics
+  - Can you get multiple copies of same hero?
+
+#### General Cards
+- Not part of the deck — separate collection
+- Selected at battle start (selection method TBD):
+  - Option A: Choose from all generals you own
+  - Option B: Randomly presented with choice of N generals
+- Applied to entire battlefield (global effects)
+- Example abilities: "All Infantry x2 power", "All units +1 power"
+- Display: TBD (side panel or below battlefield)
+- Each battle has exactly one active general (player and opponent both have one)
+- Attributes: faction, class (like troops)
+- Leveling/experience: *To be defined*
+- Unlocking mechanics: *To be defined*
+
+#### Relic Cards
+- Don't occupy battlefield slots
+- Can have passive effects: e.g., "+25% XP gained this battle"
+- Can have active effects (limited use per battle):
+  - Move a card to another slot (e.g., 1x per battle)
+  - Change terrain type of a slot (e.g., 1x per battle)
+  - Draw extra card (e.g., 2x per battle)
+  - Other: *To be defined*
+- Selection method: *STILL DEBATING*
+  - Option A: Build a relic deck, choose which relics to use before battle
+  - Option B: Fixed relic slots that are always active, with ability to swap relics at certain progression points
+- Opponent also has relics: *To be defined* (same rules as player or different?)
+- Attributes: *To be defined* (faction? class? or different attributes?)
 
 ### Card Progression & State
 - Individual card tracking: Each card instance is tracked separately throughout all campaigns/battles
@@ -105,22 +151,52 @@ Game Forge will follow clean architecture principles:
   - *To be defined:* all slot types and their modifiers
 
 ### Army Power Calculation
-- Base power: Sum of all troop card power values on battlefield
-- Modified power: Apply slot modifiers based on card type/class placement
-- Final calculation: Happens at end of battle
-- Card interactions: *To be defined* (synergies, buffs between units?)
+Components (no distinction between troops and heroes at calculation level):
+1. **Base card power:** Each card (troop or hero) has a base power value
+2. **Area of effect:** Cards can provide bonuses to nearby cards based on:
+   - Card level (if leveled)
+   - Card type (if it's a hero with area effects)
+   - Proximity to other cards
+   - Example: A level 5 archer OR a hero both provide "+3 to adjacent archers"
+3. **Slot modifiers:** Terrain/position bonuses (e.g., archers on hill get 2x power)
+4. **General bonuses:** Global battlefield effects (e.g., "all infantry x2 power")
+
+Power calculation formula and order of operations: *CONFIGURABLE*
+- Different orderings will have different strategic implications
+- Game Forge must support testing multiple calculation orders
+- Example configurations:
+  - Apply slot modifiers first, then area effects
+  - Apply general bonuses first, then slot modifiers
+  - Other orderings TBD through testing
+
+*To be defined:*
+- Specific area of effect mechanics (adjacency rules, stacking rules)
+- Interaction/stacking rules for overlapping effects
+- Rounding/tie-breaking rules
 
 ### Opponent AI
 - Behavior: *To be defined* (also draws 3, chooses 1? random selection? strategic?)
 - Strategy level: *To be defined* (difficulty scaling?)
 - UI Challenge: Fitting both player and opponent battlefields on screen needs exploration
 
-### Progression Between Battles
+### Progression Between Battles & Campaigns
 - Deck building approach: *STILL DEBATING*
   - Option A: Start with full army from battle 1, level them up through campaigns
   - Option B: Start with few cards, unlock new cards by winning battles/completing campaigns
   - Prototype should support testing both approaches
 - Card acquisition/unlocking: *To be defined* (if Option B selected)
+- Campaign paths: Multiple sequences of battles, each with implicit difficulty level
+
+### Currency System (Money)
+- Mechanics: *STILL DEBATING* but likely includes:
+  - Earn money from battle wins
+  - Spend money to purchase heroes during campaigns
+  - Spend money to unlock new relic slots or relic cards
+  - Spend money to unlock new battles or campaigns
+- *To be defined:*
+  - Exact earning rates
+  - Cost structure for hero/relic/campaign purchases
+  - Role in progression and game balance
 
 ## Configuration & Testing
 
