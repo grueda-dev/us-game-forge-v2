@@ -42,8 +42,8 @@ game-forge/
 | `shared-schema` | Yes | Yes | Config format contract |
 | `shared-domain` | Yes | Yes | Game rules must be identical in both |
 | `shared-renderer` | Yes | Yes | Designers preview exactly what players see |
-| Angular components | No | No | Different UX purposes |
-| `forge-api` backend | No | No | Final game is local-only |
+| `forge-core` | No | No | Python backend only — final game is local-only |
+| `apps/forge` UI components | No | No | Design tool UI serves a different purpose than the game UI |
 
 ---
 
