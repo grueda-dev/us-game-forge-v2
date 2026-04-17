@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ng new:*)",
+      "Bash(npx jest:*)",
+      "Bash(uv run pytest:*)",
+      "Bash(npm install:*)",
+      "Bash(npx ng build:*)",
+      "Bash(npx turbo:*)"
+    ]
+  }
+}
