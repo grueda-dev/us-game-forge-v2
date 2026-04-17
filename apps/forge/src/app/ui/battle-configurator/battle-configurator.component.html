@@ -9,7 +9,7 @@
     <div class="config-form card">
       <div class="config-row">
         <label>Player Deck</label>
-        <select [(ngModel)]="selectedPlayerDeck">
+        <select [value]="selectedPlayerDeck()" (change)="selectedPlayerDeck.set($any($event.target).value)">
           <option value="" disabled>Select deck...</option>
           @for (deck of decks(); track deck.id) {
             <option [value]="deck.id">{{ deck.name }}</option>
@@ -19,7 +19,7 @@
 
       <div class="config-row">
         <label>Opponent Deck</label>
-        <select [(ngModel)]="selectedOpponentDeck">
+        <select [value]="selectedOpponentDeck()" (change)="selectedOpponentDeck.set($any($event.target).value)">
           <option value="" disabled>Select deck...</option>
           @for (deck of decks(); track deck.id) {
             <option [value]="deck.id">{{ deck.name }}</option>
@@ -29,7 +29,7 @@
 
       <div class="config-row">
         <label>Battlefield</label>
-        <select [(ngModel)]="selectedBattlefield">
+        <select [value]="selectedBattlefield()" (change)="selectedBattlefield.set($any($event.target).value)">
           @for (bf of battlefields(); track bf.id) {
             <option [value]="bf.id">{{ bf.name }} ({{ bf.grid.rows }}x{{ bf.grid.cols }})</option>
           }
@@ -38,7 +38,7 @@
 
       <div class="config-row">
         <label>Rules</label>
-        <select [(ngModel)]="selectedRules">
+        <select [value]="selectedRules()" (change)="selectedRules.set($any($event.target).value)">
           @for (r of rules(); track r.id) {
             <option [value]="r.id">{{ r.name }}</option>
           }
@@ -46,7 +46,7 @@
       </div>
 
       <div class="form-actions">
-        <button class="primary" (click)="startBattle()" [disabled]="!canStart">
+        <button class="primary" (click)="startBattle()" [disabled]="!canStart()">
           Start Battle
         </button>
       </div>

@@ -20,10 +20,14 @@ class BattlefieldSlot(BaseModel):
     modifiers: list[TerrainModifier] = []
 
 
+class BattlefieldGrid(BaseModel):
+    rows: int
+    cols: int
+
+
 class BattlefieldConfig(BaseModel):
     id: str
     format_version: str
     name: str
-    rows: int
-    cols: int
+    grid: BattlefieldGrid
     slots: list[BattlefieldSlot]

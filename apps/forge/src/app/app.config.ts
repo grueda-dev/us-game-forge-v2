@@ -13,7 +13,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    providePersistenceStrategy('local'),
+    providePersistenceStrategy('remote'),
     {
       provide: APP_INITIALIZER,
       useFactory: initializeDuckDB,

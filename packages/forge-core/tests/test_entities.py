@@ -144,12 +144,13 @@ class TestHeroCardInstance:
 
 class TestBattlefieldConfig:
     def test_create(self):
+        from forge_core.domain.entities import BattlefieldGrid
+
         config = BattlefieldConfig(
             id="bf-01",
             format_version="1.0",
             name="Highland Grid",
-            rows=3,
-            cols=4,
+            grid=BattlefieldGrid(rows=3, cols=4),
             slots=[
                 BattlefieldSlot(
                     slot_id="slot-0-0",
@@ -161,8 +162,8 @@ class TestBattlefieldConfig:
                 ),
             ],
         )
-        assert config.rows == 3
-        assert config.cols == 4
+        assert config.grid.rows == 3
+        assert config.grid.cols == 4
         assert len(config.slots) == 1
         assert config.slots[0].terrain_type == TerrainType.HILL
 

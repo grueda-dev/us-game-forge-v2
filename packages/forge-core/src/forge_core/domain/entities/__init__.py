@@ -10,7 +10,7 @@ from .card import (
     RelicCardDefinition,
     TroopCardDefinition,
 )
-from .battlefield import BattlefieldConfig, BattlefieldSlot, GridPosition, TerrainModifier
+from .battlefield import BattlefieldConfig, BattlefieldGrid, BattlefieldSlot, GridPosition, TerrainModifier
 from .battle import BattleDefinition, BattleEndCondition
 from .configuration import DeckConfig, PowerCalculationConfig, RulesConfig, TurnConfig, XpConfig
 
@@ -30,6 +30,7 @@ __all__ = [
     "RelicCardDefinition",
     "TroopCardDefinition",
     "BattlefieldConfig",
+    "BattlefieldGrid",
     "BattlefieldSlot",
     "GridPosition",
     "TerrainModifier",
