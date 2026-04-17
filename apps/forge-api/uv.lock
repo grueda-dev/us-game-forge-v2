@@ -100,7 +100,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "fastapi", specifier = ">=0.115" },
-    { name = "forge-core", editable = "../../packages/forge-core" },
+    { name = "forge-core", editable = "../../packages/py/forge-core" },
     { name = "httpx", marker = "extra == 'dev'", specifier = ">=0.28" },
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.13" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.0" },
@@ -112,7 +112,7 @@ provides-extras = ["dev"]
 [[package]]
 name = "forge-core"
 version = "0.1.0"
-source = { editable = "../../packages/forge-core" }
+source = { editable = "../../packages/py/forge-core" }
 dependencies = [
     { name = "pydantic" },
 ]

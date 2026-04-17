@@ -4,14 +4,14 @@ on:
   push:
     branches: [main]
     paths:
-      - 'packages/shared-schema/**'
-      - 'packages/shared-domain/**'
+      - 'packages/ts/shared-schema/**'
+      - 'packages/ts/shared-domain/**'
       - 'apps/forge/**'
   pull_request:
     branches: [main]
     paths:
-      - 'packages/shared-schema/**'
-      - 'packages/shared-domain/**'
+      - 'packages/ts/shared-schema/**'
+      - 'packages/ts/shared-domain/**'
       - 'apps/forge/**'
 
 jobs:
@@ -38,4 +38,4 @@ jobs:
         run: cd apps/forge && npx ng build
 
       - name: Test shared-domain
-        run: cd packages/shared-domain && npm test
+        run: cd packages/ts/shared-domain && npm test

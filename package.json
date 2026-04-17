@@ -5,7 +5,7 @@
   "packageManager": "npm@10.5.1",
   "description": "Game Forge — Army Building Card Game Designer & Testing Tool",
   "workspaces": [
-    "packages/*",
+    "packages/ts/*",
     "apps/*"
   ],
   "scripts": {

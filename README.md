@@ -21,7 +21,7 @@ npm install
 npx turbo run build --filter=@game-forge/shared-schema --filter=@game-forge/shared-domain
 
 # Install Python dependencies for forge-core
-cd packages/forge-core
+cd packages/py/forge-core
 uv venv
 uv pip install -e ".[dev]"
 cd ../..
@@ -64,10 +64,12 @@ game-forge/
 │   ├── forge-api/       # FastAPI (backend delivery layer)
 │   └── game/            # Final web game (future)
 ├── packages/
-│   ├── shared-schema/   # TypeScript interfaces, enums, JSON schemas
-│   ├── shared-domain/   # Pure TypeScript domain rules (power calc, XP, adjacency)
-│   ├── shared-renderer/ # Shared PixiJS rendering components (future)
-│   └── forge-core/      # Shared Python domain library (entities, rules, ports, use cases)
+│   ├── ts/              # TypeScript packages
+│   │   ├── shared-schema/   # TypeScript interfaces, enums, JSON schemas
+│   │   ├── shared-domain/   # Pure TypeScript domain rules (power calc, XP, adjacency)
+│   │   └── shared-renderer/ # Shared PixiJS rendering components (future)
+│   └── py/              # Python packages
+│       └── forge-core/      # Shared Python domain library (entities, rules, ports, use cases)
 └── docs/
     ├── game_design.md   # Game mechanics design
     ├── forge_design.md  # Forge tool design

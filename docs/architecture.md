@@ -19,21 +19,23 @@ game-forge/
 │   │                       # Scriptable, CI-friendly, outputs to JSON/CSV for analysis
 │   └── game/               # Final web game (PixiJS / Phaser) — if web route chosen
 └── packages/
-    ├── shared-schema/      # JSON schemas + TypeScript interfaces (no logic)
-    │   └── src/
-    │       ├── entities/   # Raw data interfaces
-    │       ├── enums/      # Faction, CardClass, TerrainType
-    │       └── schemas/    # JSON Schema files (deck, battle, battlefield, rules)
-    ├── shared-domain/      # Pure TS domain rules — power calc, XP calc, adjacency resolver
-    │                       # No Angular, no PixiJS — portable to any JS runtime
-    ├── shared-renderer/    # PixiJS rendering components shared between Forge and final game
-    │                       # Card rendering, battlefield grid, animations, particle effects
-    │                       # Forge's battle preview and final game use identical visuals
-    └── forge-core/         # Shared Python library (installable package)
-                            # Contains: domain entities, domain rules, port interfaces,
-                            # use cases, and repository implementations
-                            # forge-api and forge-cli are pure delivery projects that
-                            # import from here — no business logic lives in them
+    ├── ts/                     # TypeScript packages
+    │   ├── shared-schema/      # JSON schemas + TypeScript interfaces (no logic)
+    │   │   └── src/
+    │   │       ├── entities/   # Raw data interfaces
+    │   │       ├── enums/      # Faction, CardClass, TerrainType
+    │   │       └── schemas/    # JSON Schema files (deck, battle, battlefield, rules)
+    │   ├── shared-domain/      # Pure TS domain rules — power calc, XP calc, adjacency resolver
+    │   │                       # No Angular, no PixiJS — portable to any JS runtime
+    │   └── shared-renderer/    # PixiJS rendering components shared between Forge and final game
+    │                           # Card rendering, battlefield grid, animations, particle effects
+    │                           # Forge's battle preview and final game use identical visuals
+    └── py/                     # Python packages
+        └── forge-core/         # Shared Python library (installable package)
+                                # Contains: domain entities, domain rules, port interfaces,
+                                # use cases, and repository implementations
+                                # forge-api and forge-cli are pure delivery projects that
+                                # import from here — no business logic lives in them
 ```
 
 ### What Each Package Shares
@@ -173,10 +175,10 @@ Export a complete game content bundle (all configs) that the final game loads.
 
 ### Milestone 0 — Repo Scaffolding
 - npm workspaces monorepo with Turborepo
-- `packages/shared-schema` with placeholder schemas
+- `packages/ts/shared-schema` with placeholder schemas
 - `apps/forge` via `ng new` (standalone, routing, scss)
 - `apps/forge-api` FastAPI skeleton with ruff + mypy
-- `packages/forge-core` Python package skeleton
+- `packages/py/forge-core` Python package skeleton
 - CI stubs (GitHub Actions)
 
 ### Milestone 1 — Domain Layer (no external deps)
@@ -211,8 +213,8 @@ Export a complete game content bundle (all configs) that the final game loads.
 ---
 
 ## Critical Files (first things to create)
-1. `packages/shared-schema/src/schemas/rules-config.schema.json` — all other configs reference this
-2. `packages/shared-domain/src/rules/power-calculator.ts` — central domain rule
+1. `packages/ts/shared-schema/src/schemas/rules-config.schema.json` — all other configs reference this
+2. `packages/ts/shared-domain/src/rules/power-calculator.ts` — central domain rule
 3. `apps/forge/src/app/infrastructure/providers/persistence-strategy.provider.ts` — dual persistence wiring
 4. `apps/forge/src/app/infrastructure/persistence/duckdb/duckdb.service.ts` — DuckDB-WASM bootstrap
 5. `apps/forge/src/app/application/use-cases/battle/configure-battle.use-case.ts` — first integration of all layers

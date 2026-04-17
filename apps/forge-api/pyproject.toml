@@ -25,7 +25,7 @@ dev = [
 packages = ["src/forge_api"]
 
 [tool.uv.sources]
-forge-core = { path = "../../packages/forge-core", editable = true }
+forge-core = { path = "../../packages/py/forge-core", editable = true }
 
 [tool.ruff]
 target-version = "py312"
