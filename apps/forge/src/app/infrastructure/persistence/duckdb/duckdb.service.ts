@@ -5,27 +5,41 @@ import * as duckdb from '@duckdb/duckdb-wasm';
 export class DuckDBService {
   private db: duckdb.AsyncDuckDB | null = null;
   private conn: duckdb.AsyncDuckDBConnection | null = null;
+  private _initError: string | null = null;
+
+  get initError(): string | null {
+    return this._initError;
+  }
+
+  get isReady(): boolean {
+    return this.conn !== null;
+  }
 
   async initialize(): Promise<void> {
-    const JSDELIVR_BUNDLES = duckdb.getJsDelivrBundles();
-    const bundle = await duckdb.selectBundle(JSDELIVR_BUNDLES);
+    try {
+      const JSDELIVR_BUNDLES = duckdb.getJsDelivrBundles();
+      const bundle = await duckdb.selectBundle(JSDELIVR_BUNDLES);
 
-    const worker = new Worker(
-      new URL(bundle.mainWorker!, import.meta.url),
-      { type: 'module' },
-    );
+      const worker = await duckdb.createWorker(bundle.mainWorker!);
 
-    const logger = new duckdb.ConsoleLogger();
-    this.db = new duckdb.AsyncDuckDB(logger, worker);
-    await this.db.instantiate(bundle.mainModule, bundle.pthreadWorker);
-    this.conn = await this.db.connect();
+      const logger = new duckdb.ConsoleLogger();
+      this.db = new duckdb.AsyncDuckDB(logger, worker);
+      await this.db.instantiate(bundle.mainModule, bundle.pthreadWorker);
+      this.conn = await this.db.connect();
 
-    await this.runMigrations();
+      await this.runMigrations();
+      console.log('DuckDB-WASM initialized successfully');
+    } catch (err) {
+      console.error('DuckDB-WASM initialization failed:', err);
+      this._initError = String(err);
+      // Don't rethrow — allow app to render and show error in UI
+    }
   }
 
   async query<T = Record<string, unknown>>(sql: string): Promise<T[]> {
     if (!this.conn) {
-      throw new Error('DuckDB not initialized. Call initialize() first.');
+      console.warn('DuckDB not initialized, returning empty result for query:', sql);
+      return [];
     }
     const result = await this.conn.query(sql);
     return result.toArray().map((row: any) => row.toJSON() as T);
@@ -33,7 +47,8 @@ export class DuckDBService {
 
   async execute(sql: string): Promise<void> {
     if (!this.conn) {
-      throw new Error('DuckDB not initialized. Call initialize() first.');
+      console.warn('DuckDB not initialized, skipping execute:', sql);
+      return;
     }
     await this.conn.query(sql);
   }

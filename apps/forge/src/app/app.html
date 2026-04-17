@@ -4,7 +4,17 @@
     <a routerLink="/battle" routerLinkActive="active">Battle</a>
     <a routerLink="/deck-builder" routerLinkActive="active">Deck Builder</a>
   </nav>
+  <span class="db-status" [class.error]="duckdb.initError">
+    @if (duckdb.isReady) { DB: Ready }
+    @else if (duckdb.initError) { DB: Error }
+    @else { DB: Loading... }
+  </span>
 </header>
+@if (duckdb.initError) {
+  <div class="error-banner">
+    DuckDB failed to initialize: {{ duckdb.initError }}. The app will work with limited functionality.
+  </div>
+}
 <main class="app-content">
   <router-outlet />
 </main>

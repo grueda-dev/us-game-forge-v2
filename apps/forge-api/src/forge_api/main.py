@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .routers import health
+from .routers import health, configurations, battles
 
 app = FastAPI(
     title="Game Forge API",
@@ -18,3 +18,5 @@ app.add_middleware(
 )
 
 app.include_router(health.router)
+app.include_router(configurations.router)
+app.include_router(battles.router)

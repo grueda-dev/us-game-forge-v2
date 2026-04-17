@@ -57,7 +57,7 @@ A single-player army-building card game where the player builds and evolves an a
   - Whether multiple copies of same hero are allowed
 
 ### General Cards
-- Not part of the deck — separate collection
+- Not part of the deck — separate collection  ????
 - Selected at battle start; each battle has exactly one active general per side
 - Selection method: *STILL DEBATING*
   - Option A: Choose from all generals you own
