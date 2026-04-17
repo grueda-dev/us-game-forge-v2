@@ -1,4 +1,6 @@
-from pydantic import BaseModel, Field
+from pydantic import Field
+
+from .base import CamelModel as BaseModel
 
 from .enums import CardClass, CardType, Faction
 

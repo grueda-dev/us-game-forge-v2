@@ -1,6 +1,6 @@
 from typing import Literal
 
-from pydantic import BaseModel
+from .base import CamelModel as BaseModel
 
 
 class BattleEndCondition(BaseModel):
