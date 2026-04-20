@@ -6,7 +6,8 @@
       "Bash(uv run pytest:*)",
       "Bash(npm install:*)",
       "Bash(npx ng build:*)",
-      "Bash(npx turbo:*)"
+      "Bash(npx turbo:*)",
+      "WebSearch"
     ]
   }
 }
