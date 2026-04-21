@@ -42,9 +42,9 @@
 
 ### Implementation for User Story 1
 
-- [ ] T009 [US1] Implement SqlModelConfigurationRepository in packages/py/forge-core/src/forge_core/adapters/repositories/sqlmodel/sqlmodel_configuration_repository.py — implement all 9 methods (save/get/list for decks, rules, battlefields) with upsert semantics using SQLModel merge, map between domain entities and table models via model_dump/model_validate
-- [ ] T010 [US1] Write integration tests for SqlModelConfigurationRepository in packages/py/forge-core/tests/adapters/repositories/sqlmodel/test_sqlmodel_configuration_repository.py — test save+retrieve, upsert (save twice with same ID), list multiple, get missing ID returns None, nested data (troop_entries, battlefield slots with terrain modifiers) round-trips without loss
-- [ ] T011 [US1] Wire SqlModelConfigurationRepository into forge-api DI — update packages/py/forge-core/src/forge_core/adapters/repositories/__init__.py to export the new class, update apps/forge-api/src/forge_api/dependencies.py to provide async session and inject SqlModelConfigurationRepository instead of MemoryConfigurationRepository
+- [x] T009 [US1] Implement SqlModelConfigurationRepository in packages/py/forge-core/src/forge_core/adapters/repositories/sqlmodel/sqlmodel_configuration_repository.py — implement all 9 methods (save/get/list for decks, rules, battlefields) with upsert semantics using SQLModel merge, map between domain entities and table models via model_dump/model_validate
+- [x] T010 [US1] Write integration tests for SqlModelConfigurationRepository in packages/py/forge-core/tests/adapters/repositories/sqlmodel/test_sqlmodel_configuration_repository.py — test save+retrieve, upsert (save twice with same ID), list multiple, get missing ID returns None, nested data (troop_entries, battlefield slots with terrain modifiers) round-trips without loss
+- [x] T011 [US1] Wire SqlModelConfigurationRepository into forge-api DI — update packages/py/forge-core/src/forge_core/adapters/repositories/__init__.py to export the new class, update apps/forge-api/src/forge_api/dependencies.py to provide async session and inject SqlModelConfigurationRepository instead of MemoryConfigurationRepository
 
 **Checkpoint**: Configs survive server restarts. Decks, rules, battlefields all persist durably.
 
@@ -58,9 +58,9 @@
 
 ### Implementation for User Story 2
 
-- [ ] T012 [P] [US2] Implement SqlModelBattleRepository in packages/py/forge-core/src/forge_core/adapters/repositories/sqlmodel/sqlmodel_battle_repository.py — implement save_battle, get_battle, list_battles with upsert semantics, map between BattleDefinition and BattleDefinitionTable
-- [ ] T013 [P] [US2] Write integration tests for SqlModelBattleRepository in packages/py/forge-core/tests/adapters/repositories/sqlmodel/test_sqlmodel_battle_repository.py — test save+retrieve, upsert, list, get missing returns None, nested BattleEndCondition round-trips correctly
-- [ ] T014 [US2] Wire SqlModelBattleRepository into forge-api DI — update apps/forge-api/src/forge_api/dependencies.py to inject SqlModelBattleRepository instead of MemoryBattleRepository
+- [x] T012 [P] [US2] Implement SqlModelBattleRepository in packages/py/forge-core/src/forge_core/adapters/repositories/sqlmodel/sqlmodel_battle_repository.py — implement save_battle, get_battle, list_battles with upsert semantics, map between BattleDefinition and BattleDefinitionTable
+- [x] T013 [P] [US2] Write integration tests for SqlModelBattleRepository in packages/py/forge-core/tests/adapters/repositories/sqlmodel/test_sqlmodel_battle_repository.py — test save+retrieve, upsert, list, get missing returns None, nested BattleEndCondition round-trips correctly
+- [x] T014 [US2] Wire SqlModelBattleRepository into forge-api DI — update apps/forge-api/src/forge_api/dependencies.py to inject SqlModelBattleRepository instead of MemoryBattleRepository
 
 **Checkpoint**: Battle definitions persist durably with all referenced config IDs intact.
 
@@ -74,9 +74,9 @@
 
 ### Implementation for User Story 3
 
-- [ ] T015 [P] [US3] Implement SqlModelCardRepository in packages/py/forge-core/src/forge_core/adapters/repositories/sqlmodel/sqlmodel_card_repository.py — implement all 5 methods (get_troop_definition, save/get card_instance, save/get hero_instance) with upsert semantics, map between domain entities and table models
-- [ ] T016 [P] [US3] Write integration tests for SqlModelCardRepository in packages/py/forge-core/tests/adapters/repositories/sqlmodel/test_sqlmodel_card_repository.py — test troop definition save+retrieve, card instance level/XP preservation, hero instance deployments_remaining preservation, get missing returns None
-- [ ] T017 [US3] Wire SqlModelCardRepository into forge-api DI — update apps/forge-api/src/forge_api/dependencies.py to inject SqlModelCardRepository instead of MemoryCardRepository
+- [x] T015 [P] [US3] Implement SqlModelCardRepository in packages/py/forge-core/src/forge_core/adapters/repositories/sqlmodel/sqlmodel_card_repository.py — implement all 5 methods (get_troop_definition, save/get card_instance, save/get hero_instance) with upsert semantics, map between domain entities and table models
+- [x] T016 [P] [US3] Write integration tests for SqlModelCardRepository in packages/py/forge-core/tests/adapters/repositories/sqlmodel/test_sqlmodel_card_repository.py — test troop definition save+retrieve, card instance level/XP preservation, hero instance deployments_remaining preservation, get missing returns None
+- [x] T017 [US3] Wire SqlModelCardRepository into forge-api DI — update apps/forge-api/src/forge_api/dependencies.py to inject SqlModelCardRepository instead of MemoryCardRepository
 
 **Checkpoint**: Card progression data persists across sessions.
 
@@ -92,8 +92,8 @@
 
 - [ ] T018 [US4] Add a pytest marker and fixture for PostgreSQL tests in packages/py/forge-core/tests/conftest.py — use `@pytest.mark.postgres` marker, skip when PostgreSQL is unavailable, configure via TEST_DATABASE_URL env var
 - [ ] T019 [US4] Parameterize existing repository tests to run against both SQLite and PostgreSQL — ensure all tests from T010, T013, T016 pass on both backends without modification
-- [ ] T020 [US4] Verify SQLite default behavior — confirm that when DATABASE_URL is not set, the application defaults to `sqlite+aiosqlite:///./forge.db` and all operations work correctly
-- [ ] T021 [US4] Update apps/forge-api/src/forge_api/main.py to add database lifecycle management — create engine on startup, dispose on shutdown, run via lifespan context manager
+- [x] T020 [US4] Verify SQLite default behavior — confirm that when DATABASE_URL is not set, the application defaults to `sqlite+aiosqlite:///./forge.db` and all operations work correctly
+- [x] T021 [US4] Update apps/forge-api/src/forge_api/main.py to add database lifecycle management — create engine on startup, dispose on shutdown, run via lifespan context manager
 
 **Checkpoint**: Switching databases requires only changing DATABASE_URL. No code changes.
 
@@ -103,10 +103,10 @@
 
 **Purpose**: Final integration, documentation, cleanup
 
-- [ ] T022 [P] Update packages/py/forge-core/src/forge_core/adapters/repositories/__init__.py to export all SQLModel repository classes alongside existing memory implementations
+- [x] T022 [P] Update packages/py/forge-core/src/forge_core/adapters/repositories/__init__.py to export all SQLModel repository classes alongside existing memory implementations
 - [ ] T023 [P] Update specs/001-sqlmodel-persistence/quickstart.md to reflect final file paths and verified commands
-- [ ] T024 Run full test suite (`uv run pytest tests/ -v`) and verify all tests pass in packages/py/forge-core/
-- [ ] T025 Run `alembic upgrade head` against a fresh SQLite file and verify all tables are created correctly
+- [x] T024 Run full test suite (`uv run pytest tests/ -v`) and verify all tests pass in packages/py/forge-core/
+- [x] T025 Run `alembic upgrade head` against a fresh SQLite file and verify all tables are created correctly
 - [ ] T026 End-to-end verification: start forge-api with SQLModel repos, save configs via API, restart server, retrieve configs — confirm data survives restart
 
 ---
