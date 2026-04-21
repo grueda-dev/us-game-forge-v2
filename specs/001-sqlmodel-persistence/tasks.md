@@ -90,8 +90,8 @@
 
 ### Implementation for User Story 4
 
-- [ ] T018 [US4] Add a pytest marker and fixture for PostgreSQL tests in packages/py/forge-core/tests/conftest.py — use `@pytest.mark.postgres` marker, skip when PostgreSQL is unavailable, configure via TEST_DATABASE_URL env var
-- [ ] T019 [US4] Parameterize existing repository tests to run against both SQLite and PostgreSQL — ensure all tests from T010, T013, T016 pass on both backends without modification
+- [x] T018 [US4] Add a pytest marker and fixture for PostgreSQL tests in packages/py/forge-core/tests/conftest.py — use `@pytest.mark.postgres` marker, skip when PostgreSQL is unavailable, configure via TEST_DATABASE_URL env var
+- [x] T019 [US4] Parameterize existing repository tests to run against both SQLite and PostgreSQL — ensure all tests from T010, T013, T016 pass on both backends without modification
 - [x] T020 [US4] Verify SQLite default behavior — confirm that when DATABASE_URL is not set, the application defaults to `sqlite+aiosqlite:///./forge.db` and all operations work correctly
 - [x] T021 [US4] Update apps/forge-api/src/forge_api/main.py to add database lifecycle management — create engine on startup, dispose on shutdown, run via lifespan context manager
 

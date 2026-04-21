@@ -1,5 +1,7 @@
 """Shared fixtures for SQLModel repository integration tests."""
 
+import os
+
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlmodel import SQLModel
@@ -14,6 +16,17 @@ from forge_core.adapters.repositories.sqlmodel.models import (  # noqa: F401
     RulesConfigTable,
     TroopCardDefinitionTable,
 )
+
+# PostgreSQL test URL from environment (matches docker-compose)
+TEST_POSTGRES_URL = os.environ.get(
+    "TEST_DATABASE_URL",
+    "postgresql+asyncpg://forge:forge@localhost:5432/forge",
+)
+
+
+def pytest_configure(config):
+    """Register custom markers."""
+    config.addinivalue_line("markers", "postgres: mark test to run against PostgreSQL")
 
 
 @pytest.fixture
@@ -41,5 +54,29 @@ async def async_session():
 
     async with engine.begin() as conn:
         await conn.run_sync(SQLModel.metadata.drop_all)
+
+    await engine.dispose()
+
+
+@pytest.fixture
+async def pg_session():
+    """Provide an async session backed by a live PostgreSQL database.
+
+    Requires PostgreSQL to be running (via docker-compose).
+    Tables are truncated before each test for isolation.
+    """
+    engine = create_async_engine(TEST_POSTGRES_URL, echo=False)
+
+    # Truncate all tables for test isolation
+    async with engine.begin() as conn:
+        for table in reversed(SQLModel.metadata.sorted_tables):
+            await conn.execute(table.delete())
+
+    session_factory = async_sessionmaker(
+        engine, class_=AsyncSession, expire_on_commit=False
+    )
+
+    async with session_factory() as session:
+        yield session
 
     await engine.dispose()

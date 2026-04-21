@@ -13,6 +13,11 @@ def repo(async_session):
     return SqlModelBattleRepository(async_session)
 
 
+@pytest.fixture
+def pg_repo(pg_session):
+    return SqlModelBattleRepository(pg_session)
+
+
 def _make_battle(
     battle_id: str = "battle-1", name: str = "Test Battle"
 ) -> BattleDefinition:
@@ -85,3 +90,34 @@ async def test_all_slots_filled_end_condition(repo):
     assert result is not None
     assert result.end_condition.type == "ALL_SLOTS_FILLED"
     assert result.end_condition.turn_limit is None
+
+
+# ── PostgreSQL Tests ──────────────────────────────────────────────
+
+
+@pytest.mark.postgres
+class TestPostgresBattleRepository:
+    async def test_save_and_get_battle(self, pg_repo):
+        battle = _make_battle()
+        await pg_repo.save_battle(battle)
+        result = await pg_repo.get_battle("battle-1")
+        assert result is not None
+        assert result.id == "battle-1"
+        assert result.end_condition.type == "TURN_LIMIT"
+        assert result.end_condition.turn_limit == 25
+
+    async def test_upsert_battle(self, pg_repo):
+        await pg_repo.save_battle(_make_battle())
+        await pg_repo.save_battle(_make_battle(name="Updated Battle"))
+        result = await pg_repo.get_battle("battle-1")
+        assert result is not None
+        assert result.name == "Updated Battle"
+
+    async def test_list_battles(self, pg_repo):
+        await pg_repo.save_battle(_make_battle("b1", "Battle One"))
+        await pg_repo.save_battle(_make_battle("b2", "Battle Two"))
+        results = await pg_repo.list_battles()
+        assert len(results) == 2
+
+    async def test_get_missing_battle(self, pg_repo):
+        assert await pg_repo.get_battle("nonexistent") is None

@@ -29,6 +29,11 @@ def repo(async_session):
     return SqlModelConfigurationRepository(async_session)
 
 
+@pytest.fixture
+def pg_repo(pg_session):
+    return SqlModelConfigurationRepository(pg_session)
+
+
 # ── Deck Config ───────────────────────────────────────────────────
 
 
@@ -213,3 +218,54 @@ async def test_list_battlefield_configs(repo):
 
 async def test_get_missing_battlefield_config(repo):
     assert await repo.get_battlefield_config("nonexistent") is None
+
+
+# ── PostgreSQL Tests ──────────────────────────────────────────────
+# Same tests, running against live PostgreSQL via pg_repo fixture
+
+
+@pytest.mark.postgres
+class TestPostgresConfigurationRepository:
+    async def test_save_and_get_deck_config(self, pg_repo):
+        deck = _make_deck()
+        await pg_repo.save_deck_config(deck)
+        result = await pg_repo.get_deck_config("deck-1")
+        assert result is not None
+        assert result.id == "deck-1"
+        assert result.name == "Test Deck"
+        assert len(result.troop_entries) == 2
+        assert result.relic_definition_ids == ["relic-001"]
+
+    async def test_upsert_deck_config(self, pg_repo):
+        await pg_repo.save_deck_config(_make_deck())
+        await pg_repo.save_deck_config(_make_deck(name="Updated Deck"))
+        result = await pg_repo.get_deck_config("deck-1")
+        assert result is not None
+        assert result.name == "Updated Deck"
+
+    async def test_list_deck_configs(self, pg_repo):
+        await pg_repo.save_deck_config(_make_deck("deck-1", "Deck One"))
+        await pg_repo.save_deck_config(_make_deck("deck-2", "Deck Two"))
+        results = await pg_repo.list_deck_configs()
+        assert len(results) == 2
+
+    async def test_get_missing_deck_config(self, pg_repo):
+        assert await pg_repo.get_deck_config("nonexistent") is None
+
+    async def test_save_and_get_rules_config(self, pg_repo):
+        rules = _make_rules()
+        await pg_repo.save_rules_config(rules)
+        result = await pg_repo.get_rules_config("rules-1")
+        assert result is not None
+        assert result.name == "Test Rules"
+        assert len(result.power_calculation.step_order) == 3
+        assert result.xp_config.level_thresholds == [100, 250, 500]
+
+    async def test_save_and_get_battlefield_config(self, pg_repo):
+        bf = _make_battlefield()
+        await pg_repo.save_battlefield_config(bf)
+        result = await pg_repo.get_battlefield_config("bf-1")
+        assert result is not None
+        assert result.grid.rows == 3
+        assert result.slots[0].terrain_type == TerrainType.HILL
+        assert result.slots[0].modifiers[0].multiplier == 1.3
