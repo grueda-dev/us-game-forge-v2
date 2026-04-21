@@ -104,10 +104,10 @@
 **Purpose**: Final integration, documentation, cleanup
 
 - [x] T022 [P] Update packages/py/forge-core/src/forge_core/adapters/repositories/__init__.py to export all SQLModel repository classes alongside existing memory implementations
-- [ ] T023 [P] Update specs/001-sqlmodel-persistence/quickstart.md to reflect final file paths and verified commands
+- [x] T023 [P] Update specs/001-sqlmodel-persistence/quickstart.md to reflect final file paths and verified commands
 - [x] T024 Run full test suite (`uv run pytest tests/ -v`) and verify all tests pass in packages/py/forge-core/
 - [x] T025 Run `alembic upgrade head` against a fresh SQLite file and verify all tables are created correctly
-- [ ] T026 End-to-end verification: start forge-api with SQLModel repos, save configs via API, restart server, retrieve configs — confirm data survives restart
+- [x] T026 End-to-end verification: start forge-api with SQLModel repos, save configs via API, restart server, retrieve configs — confirm data survives restart
 
 ---
 

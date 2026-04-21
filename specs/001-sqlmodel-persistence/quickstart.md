@@ -4,7 +4,7 @@
 
 - Python 3.12+
 - uv (Python package manager)
-- PostgreSQL (optional — SQLite used by default)
+- Docker (for PostgreSQL — optional, SQLite used by default)
 
 ## Setup
 
@@ -12,20 +12,21 @@
 
 ```bash
 cd packages/py/forge-core
-uv sync
+uv sync --extra dev
 ```
 
-This installs `sqlmodel`, `alembic`, `aiosqlite`, and `asyncpg` along
-with existing dependencies.
+This installs `sqlmodel`, `alembic`, `aiosqlite`, `asyncpg`,
+`psycopg2-binary`, and dev tools (pytest, ruff, mypy).
 
-### 2. Run database migrations
+### 2. Run database migrations (SQLite default)
 
 ```bash
 cd packages/py/forge-core
+$env:PYTHONPATH = "src"    # PowerShell
 alembic upgrade head
 ```
 
-This creates all tables in the default SQLite database (`forge.db`).
+This creates `forge.db` with all 7 tables.
 
 ### 3. Start the API
 
@@ -38,37 +39,82 @@ The API now uses SQLModel repositories backed by SQLite.
 
 ## Switch to PostgreSQL
 
-Set the `DATABASE_URL` environment variable:
+### Start PostgreSQL via Docker
 
 ```bash
-$env:DATABASE_URL = "postgresql+asyncpg://user:pass@localhost:5432/forge"
-alembic upgrade head
-uv run uvicorn forge_api.main:app --reload
+docker compose up -d
 ```
 
-## Verify
+This starts a PostgreSQL 16 container (user: `forge`, password: `forge`, db: `forge`).
+
+### Run migrations against PostgreSQL
 
 ```bash
-# Save a rules config
-curl -X POST http://localhost:8000/api/v1/configurations/rules \
-  -H "Content-Type: application/json" \
-  -d '{"id":"test","formatVersion":"1.0","name":"Test Rules",
-       "powerCalculation":{"stepOrder":["BASE_POWER"]},
-       "xpConfig":{"baseXpPerBattle":10,"bonusXpForWin":5,
-                   "levelThresholds":[100]},
-       "turnConfig":{"cardsDrawnPerTurn":3}}'
+cd packages/py/forge-core
+$env:DATABASE_URL = "postgresql+asyncpg://forge:forge@localhost:5432/forge"
+$env:PYTHONPATH = "src"
+alembic upgrade head
+```
 
-# Restart the server, then retrieve:
-curl http://localhost:8000/api/v1/configurations/rules/test
-# Should return the saved config
+### Start the API with PostgreSQL
+
+```bash
+cd apps/forge-api
+$env:DATABASE_URL = "postgresql+asyncpg://forge:forge@localhost:5432/forge"
+uv run uvicorn forge_api.main:app --reload
 ```
 
 ## Run Tests
 
+### SQLite only (default, no Docker needed)
+
 ```bash
 cd packages/py/forge-core
+$env:PYTHONPATH = "src"
 uv run pytest tests/ -v
 ```
 
-Tests run against an in-memory SQLite database by default (no file
-created, no PostgreSQL required).
+### Including PostgreSQL tests (requires running Docker container)
+
+```bash
+cd packages/py/forge-core
+$env:PYTHONPATH = "src"
+uv run pytest tests/ -v -m "postgres or not postgres"
+```
+
+### PostgreSQL tests only
+
+```bash
+uv run pytest tests/ -v -m postgres
+```
+
+## Project Structure
+
+```
+packages/py/forge-core/
+├── src/forge_core/
+│   ├── domain/                         # Unchanged domain entities & ports
+│   ├── adapters/repositories/
+│   │   ├── memory_*.py                 # In-memory implementations
+│   │   └── sqlmodel/                   # SQLModel implementations
+│   │       ├── models.py               # 7 table models
+│   │       ├── sqlmodel_configuration_repository.py
+│   │       ├── sqlmodel_battle_repository.py
+│   │       └── sqlmodel_card_repository.py
+│   └── infrastructure/
+│       └── database.py                 # Engine, session factory
+├── alembic/                            # Migration scripts
+│   ├── env.py
+│   └── versions/
+├── alembic.ini
+└── tests/
+    ├── conftest.py                     # SQLite + PostgreSQL fixtures
+    └── adapters/repositories/sqlmodel/ # Integration tests (57 total)
+```
+
+## Environment Variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `DATABASE_URL` | `sqlite+aiosqlite:///./forge.db` | Database connection string |
+| `TEST_DATABASE_URL` | `postgresql+asyncpg://forge:forge@localhost:5432/forge` | PostgreSQL test URL |
