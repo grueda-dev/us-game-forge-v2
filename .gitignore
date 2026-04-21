@@ -39,3 +39,7 @@ coverage/
 htmlcov/
 .pytest_cache/
 .nyc_output/
+
+# Database
+*.db
+*.db-journal

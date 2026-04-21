@@ -12,9 +12,9 @@
 
 **Purpose**: Add SQLModel, Alembic, and async driver dependencies
 
-- [ ] T001 Add sqlmodel, alembic, aiosqlite, asyncpg dependencies to packages/py/forge-core/pyproject.toml
-- [ ] T002 Create database infrastructure module at packages/py/forge-core/src/forge_core/infrastructure/__init__.py
-- [ ] T003 Implement database engine and async session factory in packages/py/forge-core/src/forge_core/infrastructure/database.py — include DATABASE_URL setting with SQLite default, async engine creation, and async session generator
+- [x] T001 Add sqlmodel, alembic, aiosqlite, asyncpg dependencies to packages/py/forge-core/pyproject.toml
+- [x] T002 Create database infrastructure module at packages/py/forge-core/src/forge_core/infrastructure/__init__.py
+- [x] T003 Implement database engine and async session factory in packages/py/forge-core/src/forge_core/infrastructure/database.py — include DATABASE_URL setting with SQLite default, async engine creation, and async session generator
 
 ---
 
@@ -24,11 +24,11 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T004 Create SQLModel table models module at packages/py/forge-core/src/forge_core/adapters/repositories/sqlmodel/__init__.py
-- [ ] T005 Implement all 7 SQLModel table models (DeckConfigTable, RulesConfigTable, BattlefieldConfigTable, BattleDefinitionTable, CardInstanceTable, HeroCardInstanceTable, TroopCardDefinitionTable) in packages/py/forge-core/src/forge_core/adapters/repositories/sqlmodel/models.py — use JSON columns for entities with nested Pydantic objects, native columns for flat entities per data-model.md
-- [ ] T006 Initialize Alembic at packages/py/forge-core/ — run `alembic init alembic`, configure alembic.ini with DATABASE_URL env var, update env.py to import SQLModel metadata from models.py
-- [ ] T007 Generate initial Alembic migration for all 7 tables at packages/py/forge-core/alembic/versions/ — verify it runs against both SQLite and PostgreSQL dialects
-- [ ] T008 Create pytest conftest with async SQLite session fixture at packages/py/forge-core/tests/conftest.py — use in-memory SQLite (`sqlite+aiosqlite://`), create all tables via metadata, yield async session, teardown
+- [x] T004 Create SQLModel table models module at packages/py/forge-core/src/forge_core/adapters/repositories/sqlmodel/__init__.py
+- [x] T005 Implement all 7 SQLModel table models (DeckConfigTable, RulesConfigTable, BattlefieldConfigTable, BattleDefinitionTable, CardInstanceTable, HeroCardInstanceTable, TroopCardDefinitionTable) in packages/py/forge-core/src/forge_core/adapters/repositories/sqlmodel/models.py — use JSON columns for entities with nested Pydantic objects, native columns for flat entities per data-model.md
+- [x] T006 Initialize Alembic at packages/py/forge-core/ — run `alembic init alembic`, configure alembic.ini with DATABASE_URL env var, update env.py to import SQLModel metadata from models.py
+- [x] T007 Generate initial Alembic migration for all 7 tables at packages/py/forge-core/alembic/versions/ — verify it runs against both SQLite and PostgreSQL dialects
+- [x] T008 Create pytest conftest with async SQLite session fixture at packages/py/forge-core/tests/conftest.py — use in-memory SQLite (`sqlite+aiosqlite://`), create all tables via metadata, yield async session, teardown
 
 **Checkpoint**: Foundation ready — table models exist, migrations run, test fixtures work
 
