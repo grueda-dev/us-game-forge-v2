@@ -64,13 +64,18 @@ async def pg_session():
 
     Requires PostgreSQL to be running (via docker-compose).
     Tables are truncated before each test for isolation.
+    Automatically skips if PostgreSQL is not reachable.
     """
     engine = create_async_engine(TEST_POSTGRES_URL, echo=False)
 
-    # Truncate all tables for test isolation
-    async with engine.begin() as conn:
-        for table in reversed(SQLModel.metadata.sorted_tables):
-            await conn.execute(table.delete())
+    # Try to connect — skip gracefully if PG is not available
+    try:
+        async with engine.begin() as conn:
+            for table in reversed(SQLModel.metadata.sorted_tables):
+                await conn.execute(table.delete())
+    except OSError:
+        await engine.dispose()
+        pytest.skip("PostgreSQL is not available")
 
     session_factory = async_sessionmaker(
         engine, class_=AsyncSession, expire_on_commit=False
