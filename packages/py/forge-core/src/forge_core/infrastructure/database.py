@@ -1,10 +1,25 @@
 import os
 from collections.abc import AsyncGenerator
+from pathlib import Path
 
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlmodel import SQLModel
 
 DEFAULT_DATABASE_URL = "sqlite+aiosqlite:///./forge.db"
+
+
+def _load_dotenv() -> None:
+    """Attempt to load .env file if python-dotenv is available."""
+    try:
+        from dotenv import load_dotenv
+
+        # Walk up from cwd looking for .env
+        load_dotenv()
+    except ImportError:
+        pass
+
+
+_load_dotenv()
 
 
 def get_database_url() -> str:
