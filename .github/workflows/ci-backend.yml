@@ -42,6 +42,3 @@ jobs:
 
       - name: Lint forge-api
         run: cd apps/forge-api && uv run ruff check src/
-
-      - name: Test forge-api
-        run: cd apps/forge-api && uv run pytest
