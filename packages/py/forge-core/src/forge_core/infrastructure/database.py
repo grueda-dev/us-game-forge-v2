@@ -1,7 +1,12 @@
 import os
 from collections.abc import AsyncGenerator
 
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.ext.asyncio import (
+    AsyncEngine,
+    AsyncSession,
+    async_sessionmaker,
+    create_async_engine,
+)
 from sqlmodel import SQLModel
 
 DEFAULT_DATABASE_URL = "sqlite+aiosqlite:///./forge.db"
@@ -26,7 +31,7 @@ def get_database_url() -> str:
     return os.environ.get("DATABASE_URL", DEFAULT_DATABASE_URL)
 
 
-def create_engine(database_url: str | None = None):
+def create_engine(database_url: str | None = None) -> AsyncEngine:
     """Create an async database engine.
 
     Args:
@@ -42,7 +47,7 @@ def create_engine(database_url: str | None = None):
     return create_async_engine(url, echo=False, connect_args=connect_args)
 
 
-def create_session_factory(engine) -> async_sessionmaker[AsyncSession]:
+def create_session_factory(engine: AsyncEngine) -> async_sessionmaker[AsyncSession]:
     """Create an async session factory bound to the given engine."""
     return async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 

@@ -3,6 +3,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ....domain.entities.card import CardInstance, HeroCardInstance, TroopCardDefinition
+from ....domain.entities.enums import CardClass, CardType, Faction
 from ....domain.ports.card_repository import CardRepository
 from .models import CardInstanceTable, HeroCardInstanceTable, TroopCardDefinitionTable
 
@@ -23,10 +24,10 @@ class SqlModelCardRepository(CardRepository):
             return None
         return TroopCardDefinition(
             definition_id=row.definition_id,
-            card_type=row.card_type,
+            card_type=CardType(row.card_type),
             name=row.name,
-            faction=row.faction,
-            card_class=row.card_class,
+            faction=Faction(row.faction),
+            card_class=CardClass(row.card_class),
             base_power=row.base_power,
         )
 
