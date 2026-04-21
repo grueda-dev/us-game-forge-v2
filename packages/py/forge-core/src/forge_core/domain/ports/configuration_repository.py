@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-from ..entities.configuration import DeckConfig, RulesConfig
 from ..entities.battlefield import BattlefieldConfig
+from ..entities.configuration import DeckConfig, RulesConfig
 
 
 class ConfigurationRepository(ABC):

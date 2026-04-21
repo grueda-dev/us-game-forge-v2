@@ -1,5 +1,4 @@
 from .base import CamelModel as BaseModel
-
 from .enums import PowerCalculationStep
 
 
