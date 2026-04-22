@@ -41,20 +41,20 @@ A single-player army-building card game where the player builds and evolves an a
 - Ability type: level-based area-of-effect bonuses to adjacent units
   - Example: level 5 archer provides +3 power to all adjacent archers
 
-### Hero Cards
+### Mercenary Cards
 - Placed in deck and drawn/played like regular troops
 - Attributes: faction, class, base power value
 - Higher power than regular troops relative to their acquisition level
 - Area-of-effect bonuses for adjacent cards (like high-level troops)
-- Limited deployments: each hero has a deployment counter
-  - When deployments are exhausted, hero is permanently removed from deck
-- Heroes do NOT level up
+- Limited deployments: each mercenary has a deployment counter
+  - When deployments are exhausted, mercenary is permanently removed from deck
+- Mercenaries do NOT level up
 - Acquisition: campaign rewards or purchasable during campaigns
-- Hero power scales with the implicit difficulty of the campaign where acquired
+- Mercenary power scales with the implicit difficulty of the campaign where acquired
 - *To be defined:*
   - Exact power scaling formula
   - Exact area effect mechanics
-  - Whether multiple copies of same hero are allowed
+  - Whether multiple copies of same mercenary are allowed
 
 ### General Cards
 - Not part of the deck — separate collection  ????
@@ -94,7 +94,7 @@ A single-player army-building card game where the player builds and evolves an a
   - On level up: base power increases
   - Higher levels unlock area-of-effect abilities
   - *To be defined:* XP gain formula, level cap, ability unlock thresholds
-- **Heroes:** Do not level up
+- **Mercenary Cards:** Do not level up
 
 ---
 
@@ -110,11 +110,11 @@ A single-player army-building card game where the player builds and evolves an a
 
 ## Army Power Calculation
 
-No distinction between troops and heroes at the calculation level. All placed cards are treated the same.
+No distinction between troops and mercenaries at the calculation level. All placed cards are treated the same.
 
 **Calculation components:**
 1. **Base card power** — each card's base power value
-2. **Area of effect** — bonuses provided by adjacent cards (from leveled troops or heroes)
+2. **Area of effect** — bonuses provided by adjacent cards (from leveled troops or mercenaries)
 3. **Slot modifiers** — terrain bonuses based on card class and slot terrain type
 4. **General bonuses** — global effects applied by the active general
 
@@ -147,7 +147,7 @@ No distinction between troops and heroes at the calculation level. All placed ca
 ### Currency System
 - Mechanics: *STILL DEBATING* but likely includes:
   - Earn currency from battle wins
-  - Spend on purchasing heroes during campaigns
+  - Spend on purchasing mercenaries during campaigns
   - Spend on new relic slots or relic cards
   - Spend to unlock new battles or campaigns
 - *To be defined:* earning rates, cost structure, role in progression

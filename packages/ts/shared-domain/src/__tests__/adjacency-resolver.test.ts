@@ -1,7 +1,7 @@
 import { Faction, CardClass, TerrainType } from '@game-forge/shared-schema';
 import { BattlefieldSlotEntity, BattlefieldEntity } from '../entities/battlefield.entity';
 import { TroopCardEntity } from '../entities/troop-card.entity';
-import { HeroCardEntity } from '../entities/hero-card.entity';
+import { MercenaryCardEntity } from '../entities/mercenary-card.entity';
 import { resolveAllAoeContributions } from '../rules/adjacency-resolver';
 
 function createSlot(row: number, col: number): BattlefieldSlotEntity {
@@ -70,21 +70,21 @@ describe('resolveAllAoeContributions', () => {
     expect(contributions).toHaveLength(0);
   });
 
-  it('finds AoE from hero to matching adjacent', () => {
+  it('finds AoE from mercenary to matching adjacent', () => {
     const slots = [createSlot(0, 0), createSlot(0, 1)];
-    const hero = new HeroCardEntity(
-      'hero-01', 'Hero', Faction.HUMAN, CardClass.INFANTRY, 25, 3,
+    const mercenary = new MercenaryCardEntity(
+      'mercenary-01', 'Mercenary', Faction.HUMAN, CardClass.INFANTRY, 25, 3,
       { targetClass: CardClass.INFANTRY, bonusPower: 5 },
     );
     const target = createTroop(CardClass.INFANTRY, 1);
-    slots[0].place(hero);
+    slots[0].place(mercenary);
     slots[1].place(target);
     const bf = new BattlefieldEntity(1, 2, slots);
 
     const contributions = resolveAllAoeContributions(bf, AOE_UNLOCK_LEVEL);
 
     expect(contributions).toHaveLength(1);
-    expect(contributions[0].sourceInstanceId).toBe(hero.instanceId.value);
+    expect(contributions[0].sourceInstanceId).toBe(mercenary.instanceId.value);
     expect(contributions[0].effect.bonusPower).toBe(5);
   });
 

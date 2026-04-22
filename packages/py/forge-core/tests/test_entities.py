@@ -13,7 +13,7 @@ from forge_core.domain.entities import (
     GeneralCardDefinition,
     GlobalEffect,
     GridPosition,
-    HeroCardDefinition,
+    MercenaryCardDefinition,
     OwnedCard,
     Player,
     PlayerState,
@@ -41,7 +41,7 @@ class TestEnums:
 
     def test_card_type_values(self):
         assert CardType.TROOP == "TROOP"
-        assert CardType.HERO == "HERO"
+        assert CardType.MERCENARY == "MERCENARY"
         assert CardType.GENERAL == "GENERAL"
         assert CardType.RELIC == "RELIC"
 
@@ -77,18 +77,18 @@ class TestTroopCardDefinition:
         assert restored == troop
 
 
-class TestHeroCardDefinition:
+class TestMercenaryCardDefinition:
     def test_create(self):
-        hero = HeroCardDefinition(
-            definition_id="hero-01",
+        mercenary = MercenaryCardDefinition(
+            definition_id="mercenary-01",
             name="Iron Commander",
             faction=Faction.HUMAN,
             card_class=CardClass.INFANTRY,
             base_power=25,
             max_deployments=3,
         )
-        assert hero.card_type == CardType.HERO
-        assert hero.max_deployments == 3
+        assert mercenary.card_type == CardType.MERCENARY
+        assert mercenary.max_deployments == 3
 
 
 class TestGeneralCardDefinition:
@@ -147,16 +147,16 @@ class TestOwnedCard:
         assert card.experience == 0
         assert card.deployments_remaining is None
 
-    def test_create_hero_with_deployments(self):
+    def test_create_mercenary_with_deployments(self):
         card = OwnedCard(
             instance_id="oc-002",
-            definition_id="hero-01",
-            card_type=CardType.HERO,
+            definition_id="mercenary-01",
+            card_type=CardType.MERCENARY,
             level=3,
             experience=250,
             deployments_remaining=2,
         )
-        assert card.card_type == CardType.HERO
+        assert card.card_type == CardType.MERCENARY
         assert card.level == 3
         assert card.experience == 250
         assert card.deployments_remaining == 2
@@ -164,8 +164,8 @@ class TestOwnedCard:
     def test_serialization_roundtrip(self):
         card = OwnedCard(
             instance_id="oc-003",
-            definition_id="hero-01",
-            card_type=CardType.HERO,
+            definition_id="mercenary-01",
+            card_type=CardType.MERCENARY,
             level=3,
             experience=250,
             deployments_remaining=1,
@@ -187,8 +187,8 @@ class TestCardCollection:
                 card_type=CardType.TROOP,
             ),
             OwnedCard(
-                instance_id="oc-2", definition_id="hero-01",
-                card_type=CardType.HERO, deployments_remaining=3,
+                instance_id="oc-2", definition_id="mercenary-01",
+                card_type=CardType.MERCENARY, deployments_remaining=3,
             ),
         ]
         collection = CardCollection(cards=cards)
@@ -243,8 +243,8 @@ class TestPlayerState:
                         card_type=CardType.TROOP, level=5, experience=450,
                     ),
                     OwnedCard(
-                        instance_id="oc-2", definition_id="hero-01",
-                        card_type=CardType.HERO, deployments_remaining=2,
+                        instance_id="oc-2", definition_id="mercenary-01",
+                        card_type=CardType.MERCENARY, deployments_remaining=2,
                     ),
                 ]
             ),
@@ -418,7 +418,7 @@ class TestRulesConfig:
 
 class TestDeckConfig:
     def test_create(self):
-        from forge_core.domain.entities.configuration import DeckHeroEntry, DeckTroopEntry
+        from forge_core.domain.entities.configuration import DeckMercenaryEntry, DeckTroopEntry
 
         deck = DeckConfig(
             id="deck-01",
@@ -429,9 +429,9 @@ class TestDeckConfig:
                 DeckTroopEntry(definition_id="troop-cavalry-01", quantity=3),
                 DeckTroopEntry(definition_id="troop-archer-01", quantity=2),
             ],
-            hero_entries=[DeckHeroEntry(definition_id="hero-01")],
+            mercenary_entries=[DeckMercenaryEntry(definition_id="mercenary-01")],
             relic_definition_ids=["relic-01"],
         )
         assert len(deck.troop_entries) == 2
         assert deck.troop_entries[0].quantity == 3
-        assert len(deck.hero_entries) == 1
+        assert len(deck.mercenary_entries) == 1

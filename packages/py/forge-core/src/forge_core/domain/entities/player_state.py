@@ -26,9 +26,9 @@ class Player(BaseModel):
 class OwnedCard(BaseModel):
     """A card instance owned by a player.
 
-    Replaces the former CardInstance and HeroCardInstance entities.
+    Replaces the former CardInstance and MercenaryCardInstance entities.
     Uses card_type discriminator + optional deployments_remaining
-    for hero-specific cross-battle state.
+    for mercenary-specific cross-battle state.
     """
 
     instance_id: str

@@ -67,7 +67,7 @@ Define the full campaign structure:
 - Create campaigns with ordered battle sequences
 - Set implicit difficulty levels per campaign
 - Define unlock conditions between campaigns
-- Define rewards per battle and campaign (currency, heroes, relics, unlocks)
+- Define rewards per battle and campaign (currency, mercenaries, relics, unlocks)
 - Test multiple campaign paths and progression flows
 - Goal: balance overall game progression
 
@@ -101,8 +101,8 @@ All configs share a `formatVersion` + `id` envelope and are stored as JSON.
 
 | Config | Description |
 |---|---|
-| `card-definition-catalog` | Master list of all card definitions (troops, heroes, generals, relics) |
-| `deck-config` | A named deck (troop/hero/general/relic selections) |
+| `card-definition-catalog` | Master list of all card definitions (troops, mercenaries, generals, relics) |
+| `deck-config` | A named deck (troop/mercenary/general/relic selections) |
 | `initial-deck-config` | Starting deck for a new player (links to deck-config + starting levels) |
 | `battlefield-config` | Grid layout with slot terrain modifiers; optionally includes layout settings |
 | `rules-config` | Power calculation step order, XP thresholds, card limits, turn rules |

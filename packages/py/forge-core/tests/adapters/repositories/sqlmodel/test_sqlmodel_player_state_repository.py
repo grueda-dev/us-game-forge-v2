@@ -46,8 +46,8 @@ def _make_state(
                 ),
                 OwnedCard(
                     instance_id="oc-2",
-                    definition_id="hero-01",
-                    card_type=CardType.HERO,
+                    definition_id="mercenary-01",
+                    card_type=CardType.MERCENARY,
                     deployments_remaining=2,
                 ),
             ]

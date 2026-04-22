@@ -17,9 +17,9 @@ from sqlmodel import SQLModel
 from forge_core.adapters.repositories.sqlmodel.models import (  # noqa: F401
     BattleDefinitionTable,
     BattlefieldConfigTable,
-    CardInstanceTable,
     DeckConfigTable,
-    HeroCardInstanceTable,
+    PlayerStateTable,
+    PlayerTable,
     RulesConfigTable,
     TroopCardDefinitionTable,
 )

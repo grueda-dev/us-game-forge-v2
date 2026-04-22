@@ -7,7 +7,7 @@ import type {
 } from '@game-forge/shared-schema';
 import {
   TroopCardEntity,
-  HeroCardEntity,
+  MercenaryCardEntity,
   BattlefieldSlotEntity,
   BattlefieldEntity,
   type GlobalBonusEffect,
@@ -93,9 +93,9 @@ export class ConfigureBattleUseCase {
       }
     }
 
-    for (const entry of deckConfig.heroEntries) {
+    for (const entry of deckConfig.mercenaryEntries ?? []) {
       cards.push(
-        new HeroCardEntity(
+        new MercenaryCardEntity(
           entry.definitionId,
           entry.definitionId,
           'HUMAN' as any,

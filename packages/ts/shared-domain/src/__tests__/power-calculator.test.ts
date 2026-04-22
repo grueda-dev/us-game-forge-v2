@@ -3,7 +3,7 @@ import {
   type PowerCalculationConfig,
 } from '@game-forge/shared-schema';
 import { TroopCardEntity } from '../entities/troop-card.entity';
-import { HeroCardEntity } from '../entities/hero-card.entity';
+import { MercenaryCardEntity } from '../entities/mercenary-card.entity';
 import { BattlefieldSlotEntity, BattlefieldEntity } from '../entities/battlefield.entity';
 import { calculateArmyPower, type GlobalBonusEffect } from '../rules/power-calculator';
 
@@ -137,13 +137,13 @@ describe('calculateArmyPower', () => {
     expect(card1Breakdown.aoeBonusReceived).toBeGreaterThan(0);
   });
 
-  it('applies AoE bonus from adjacent hero', () => {
+  it('applies AoE bonus from adjacent mercenary', () => {
     const slots = [createSlot(0, 0), createSlot(0, 1)];
-    const hero = new HeroCardEntity(
-      'hero-01', 'Hero', Faction.HUMAN, CardClass.INFANTRY, 25, 3,
+    const mercenary = new MercenaryCardEntity(
+      'mercenary-01', 'Mercenary', Faction.HUMAN, CardClass.INFANTRY, 25, 3,
       { targetClass: CardClass.INFANTRY, bonusPower: 5 },
     );
-    slots[0].place(hero);
+    slots[0].place(mercenary);
     slots[1].place(createTroop(CardClass.INFANTRY, 10));
     const bf = new BattlefieldEntity(1, 2, slots);
 

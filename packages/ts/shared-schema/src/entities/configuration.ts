@@ -6,7 +6,7 @@ export interface DeckConfig {
   name: string;
   generalDefinitionId: string;
   troopEntries: DeckTroopEntry[];
-  heroEntries: DeckHeroEntry[];
+  mercenaryEntries: DeckMercenaryEntry[];
   relicDefinitionIds: string[];
 }
 
@@ -15,7 +15,7 @@ export interface DeckTroopEntry {
   quantity: number;
 }
 
-export interface DeckHeroEntry {
+export interface DeckMercenaryEntry {
   definitionId: string;
 }
 

@@ -4,7 +4,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from ....domain.entities.card import (
     GeneralCardDefinition,
-    HeroCardDefinition,
+    MercenaryCardDefinition,
     RelicCardDefinition,
     TroopCardDefinition,
 )
@@ -16,7 +16,7 @@ from .models import TroopCardDefinitionTable
 class SqlModelCardDefinitionRepository(CardDefinitionRepository):
     """Persists card definitions via SQLModel/SQLAlchemy.
 
-    Currently supports troop definitions only — hero, general, and relic
+    Currently supports troop definitions only — mercenary, general, and relic
     definition tables will be added in future migrations.
     """
 
@@ -86,12 +86,12 @@ class SqlModelCardDefinitionRepository(CardDefinitionRepository):
     # ── Stub implementations for types without tables yet ─────────
     # These return empty results until their table models are added.
 
-    async def get_hero_definition(
+    async def get_mercenary_definition(
         self, definition_id: str
-    ) -> HeroCardDefinition | None:
+    ) -> MercenaryCardDefinition | None:
         return None
 
-    async def list_hero_definitions(self) -> list[HeroCardDefinition]:
+    async def list_mercenary_definitions(self) -> list[MercenaryCardDefinition]:
         return []
 
     async def get_general_definition(

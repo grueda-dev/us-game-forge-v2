@@ -28,9 +28,11 @@ class TroopCardDefinition(BaseModel):
     base_power: int
 
 
-class HeroCardDefinition(BaseModel):
+class MercenaryCardDefinition(BaseModel):
+    """A mercenary card definition — limited deployments, no leveling."""
+
     definition_id: str
-    card_type: CardType = CardType.HERO
+    card_type: CardType = CardType.MERCENARY
     name: str
     faction: Faction
     card_class: CardClass
