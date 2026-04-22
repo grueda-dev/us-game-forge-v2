@@ -10,10 +10,18 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from forge_core.adapters.repositories import (
     SqlModelBattleRepository,
-    SqlModelCardRepository,
+    SqlModelCardDefinitionRepository,
     SqlModelConfigurationRepository,
+    SqlModelPlayerRepository,
+    SqlModelPlayerStateRepository,
 )
-from forge_core.domain.ports import BattleRepository, CardRepository, ConfigurationRepository
+from forge_core.domain.ports import (
+    BattleRepository,
+    CardDefinitionRepository,
+    ConfigurationRepository,
+    PlayerRepository,
+    PlayerStateRepository,
+)
 from forge_core.infrastructure.database import create_engine, create_session_factory
 
 # Module-level engine and session factory — created once at import time
@@ -39,7 +47,19 @@ async def get_battle_repo(
     return SqlModelBattleRepository(session)
 
 
-async def get_card_repo(
+async def get_card_definition_repo(
     session: AsyncSession = Depends(get_async_session),
-) -> CardRepository:
-    return SqlModelCardRepository(session)
+) -> CardDefinitionRepository:
+    return SqlModelCardDefinitionRepository(session)
+
+
+async def get_player_repo(
+    session: AsyncSession = Depends(get_async_session),
+) -> PlayerRepository:
+    return SqlModelPlayerRepository(session)
+
+
+async def get_player_state_repo(
+    session: AsyncSession = Depends(get_async_session),
+) -> PlayerStateRepository:
+    return SqlModelPlayerStateRepository(session)

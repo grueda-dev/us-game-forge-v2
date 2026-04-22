@@ -59,27 +59,6 @@ class BattleDefinitionTable(SQLModel, table=True):
     data: dict[str, Any] = Field(sa_column=Column(JSON, nullable=False))
 
 
-class CardInstanceTable(SQLModel, table=True):
-    """Persists CardInstance domain entities (all scalar fields)."""
-
-    __tablename__ = "card_instances"
-
-    instance_id: str = Field(primary_key=True)
-    definition_id: str
-    level: int = 1
-    experience: int = 0
-
-
-class HeroCardInstanceTable(SQLModel, table=True):
-    """Persists HeroCardInstance domain entities (all scalar fields)."""
-
-    __tablename__ = "hero_card_instances"
-
-    instance_id: str = Field(primary_key=True)
-    definition_id: str
-    deployments_remaining: int
-
-
 class TroopCardDefinitionTable(SQLModel, table=True):
     """Persists TroopCardDefinition domain entities (all scalar fields)."""
 
@@ -91,3 +70,25 @@ class TroopCardDefinitionTable(SQLModel, table=True):
     faction: str
     card_class: str
     base_power: int
+
+
+class PlayerTable(SQLModel, table=True):
+    """Persists Player identity entities."""
+
+    __tablename__ = "players"
+
+    player_id: str = Field(primary_key=True)
+    name: str
+    created_at: str  # ISO 8601 UTC string
+
+
+class PlayerStateTable(SQLModel, table=True):
+    """Persists PlayerState snapshots as append-only versions."""
+
+    __tablename__ = "player_states"
+
+    player_id: str = Field(primary_key=True)
+    version: int = Field(primary_key=True)
+    timestamp: str  # ISO 8601 UTC string
+    change_note: str | None = None
+    data: dict[str, Any] = Field(sa_column=Column(JSON, nullable=False))

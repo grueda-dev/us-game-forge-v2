@@ -1,9 +1,9 @@
 from .models import (
     BattleDefinitionTable,
     BattlefieldConfigTable,
-    CardInstanceTable,
     DeckConfigTable,
-    HeroCardInstanceTable,
+    PlayerStateTable,
+    PlayerTable,
     RulesConfigTable,
     TroopCardDefinitionTable,
 )
@@ -11,9 +11,9 @@ from .models import (
 __all__ = [
     "BattleDefinitionTable",
     "BattlefieldConfigTable",
-    "CardInstanceTable",
     "DeckConfigTable",
-    "HeroCardInstanceTable",
+    "PlayerStateTable",
+    "PlayerTable",
     "RulesConfigTable",
     "TroopCardDefinitionTable",
 ]

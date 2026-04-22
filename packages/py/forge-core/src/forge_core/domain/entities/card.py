@@ -55,15 +55,3 @@ class RelicCardDefinition(BaseModel):
     passive_effect: PassiveEffect | None = None
     active_effect: ActiveEffect | None = None
 
-
-class CardInstance(BaseModel):
-    instance_id: str
-    definition_id: str
-    level: int = 1
-    experience: int = 0
-
-
-class HeroCardInstance(BaseModel):
-    instance_id: str
-    definition_id: str
-    deployments_remaining: int

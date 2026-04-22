@@ -8,17 +8,16 @@ from .battlefield import (
 )
 from .card import (
     ActiveEffect,
-    CardInstance,
     GeneralCardDefinition,
     GlobalEffect,
     HeroCardDefinition,
-    HeroCardInstance,
     PassiveEffect,
     RelicCardDefinition,
     TroopCardDefinition,
 )
 from .configuration import DeckConfig, PowerCalculationConfig, RulesConfig, TurnConfig, XpConfig
 from .enums import CardClass, CardType, Faction, PowerCalculationStep, TerrainType
+from .player_state import CardCollection, OwnedCard, Player, PlayerState, Wallet
 
 __all__ = [
     "CardClass",
@@ -27,11 +26,9 @@ __all__ = [
     "PowerCalculationStep",
     "TerrainType",
     "ActiveEffect",
-    "CardInstance",
     "GeneralCardDefinition",
     "GlobalEffect",
     "HeroCardDefinition",
-    "HeroCardInstance",
     "PassiveEffect",
     "RelicCardDefinition",
     "TroopCardDefinition",
@@ -47,4 +44,9 @@ __all__ = [
     "RulesConfig",
     "TurnConfig",
     "XpConfig",
+    "CardCollection",
+    "OwnedCard",
+    "Player",
+    "PlayerState",
+    "Wallet",
 ]
