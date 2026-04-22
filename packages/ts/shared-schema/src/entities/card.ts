@@ -17,9 +17,9 @@ export interface TroopCardDefinition extends CardDefinition {
   cardType: CardType.TROOP;
 }
 
-/** A hero card definition */
-export interface HeroCardDefinition extends CardDefinition {
-  cardType: CardType.HERO;
+/** A mercenary card definition */
+export interface MercenaryCardDefinition extends CardDefinition {
+  cardType: CardType.MERCENARY;
   maxDeployments: number;
 }
 
@@ -65,8 +65,8 @@ export interface CardInstance {
   experience: number;
 }
 
-/** A hero card instance with deployment tracking */
-export interface HeroCardInstance {
+/** A mercenary card instance with deployment tracking */
+export interface MercenaryCardInstance {
   instanceId: string;
   definitionId: string;
   deploymentsRemaining: number;

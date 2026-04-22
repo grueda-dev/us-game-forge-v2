@@ -102,7 +102,7 @@ export class DuckDBService {
     `);
 
     await this.execute(`
-      CREATE TABLE IF NOT EXISTS hero_instances (
+      CREATE TABLE IF NOT EXISTS mercenary_instances (
         instance_id VARCHAR PRIMARY KEY,
         definition_id VARCHAR NOT NULL,
         deployments_remaining INTEGER NOT NULL,

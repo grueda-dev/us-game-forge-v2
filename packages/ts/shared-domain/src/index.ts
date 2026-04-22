@@ -4,7 +4,7 @@ export { CardInstanceId } from './value-objects/card-instance-id';
 // Entities
 export { TroopCardEntity } from './entities/troop-card.entity';
 export type { AoeEffect } from './entities/troop-card.entity';
-export { HeroCardEntity } from './entities/hero-card.entity';
+export { MercenaryCardEntity } from './entities/mercenary-card.entity';
 export {
   BattlefieldSlotEntity,
   BattlefieldEntity,

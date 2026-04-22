@@ -1,6 +1,6 @@
 export enum CardType {
   TROOP = 'TROOP',
-  HERO = 'HERO',
+  MERCENARY = 'MERCENARY',
   GENERAL = 'GENERAL',
   RELIC = 'RELIC',
 }

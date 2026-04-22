@@ -1,14 +1,14 @@
 export type {
   CardDefinition,
   TroopCardDefinition,
-  HeroCardDefinition,
+  MercenaryCardDefinition,
   GeneralCardDefinition,
   RelicCardDefinition,
   GlobalEffect,
   PassiveEffect,
   ActiveEffect,
   CardInstance,
-  HeroCardInstance,
+  MercenaryCardInstance,
 } from './card';
 
 export type {
@@ -28,7 +28,7 @@ export type {
 export type {
   DeckConfig,
   DeckTroopEntry,
-  DeckHeroEntry,
+  DeckMercenaryEntry,
   RulesConfig,
   PowerCalculationConfig,
   XpConfig,

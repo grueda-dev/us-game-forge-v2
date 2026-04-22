@@ -61,7 +61,7 @@ export class DeckBuilderComponent {
         definitionId: e.definitionId,
         quantity: e.quantity,
       })),
-      heroEntries: [],
+      mercenaryEntries: [],
       relicDefinitionIds: [],
     };
 

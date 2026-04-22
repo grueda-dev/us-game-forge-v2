@@ -14,7 +14,7 @@ from forge_core.domain.entities.battlefield import (
 )
 from forge_core.domain.entities.configuration import (
     DeckConfig,
-    DeckHeroEntry,
+    DeckMercenaryEntry,
     DeckTroopEntry,
     PowerCalculationConfig,
     RulesConfig,
@@ -47,7 +47,7 @@ def _make_deck(deck_id: str = "deck-1", name: str = "Test Deck") -> DeckConfig:
             DeckTroopEntry(definition_id="troop-001", quantity=3),
             DeckTroopEntry(definition_id="troop-002", quantity=2),
         ],
-        hero_entries=[DeckHeroEntry(definition_id="hero-001")],
+        mercenary_entries=[DeckMercenaryEntry(definition_id="mercenary-001")],
         relic_definition_ids=["relic-001"],
     )
 
@@ -64,7 +64,7 @@ async def test_save_and_get_deck_config(repo):
     assert len(result.troop_entries) == 2
     assert result.troop_entries[0].definition_id == "troop-001"
     assert result.troop_entries[0].quantity == 3
-    assert len(result.hero_entries) == 1
+    assert len(result.mercenary_entries) == 1
     assert result.relic_definition_ids == ["relic-001"]
 
 

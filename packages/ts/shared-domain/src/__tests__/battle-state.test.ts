@@ -5,7 +5,7 @@ import {
 } from '@game-forge/shared-schema';
 import {
   TroopCardEntity,
-  HeroCardEntity,
+  MercenaryCardEntity,
   BattlefieldSlotEntity,
   BattlefieldEntity,
   calculateArmyPower,
@@ -129,23 +129,23 @@ describe('Battle simulation flow', () => {
     expect(p2.totalPower).toBeGreaterThan(o1.totalPower);
   });
 
-  it('hero deployment tracking across battles', () => {
-    const hero = new HeroCardEntity(
-      'hero-01', 'Iron Commander', Faction.HUMAN, CardClass.INFANTRY, 25, 2, null,
+  it('mercenary deployment tracking across battles', () => {
+    const mercenary = new MercenaryCardEntity(
+      'mercenary-01', 'Iron Commander', Faction.HUMAN, CardClass.INFANTRY, 25, 2, null,
     );
 
     // Battle 1
-    hero.deploy();
-    expect(hero.deploymentsRemaining).toBe(1);
-    expect(hero.isExhausted).toBe(false);
+    mercenary.deploy();
+    expect(mercenary.deploymentsRemaining).toBe(1);
+    expect(mercenary.isExhausted).toBe(false);
 
     // Battle 2
-    hero.deploy();
-    expect(hero.deploymentsRemaining).toBe(0);
-    expect(hero.isExhausted).toBe(true);
+    mercenary.deploy();
+    expect(mercenary.deploymentsRemaining).toBe(0);
+    expect(mercenary.isExhausted).toBe(true);
 
     // Cannot deploy again
-    expect(() => hero.deploy()).toThrow();
+    expect(() => mercenary.deploy()).toThrow();
   });
 
   it('simulation produces statistics from multiple battles', () => {

@@ -23,7 +23,7 @@ class DeckTroopEntry(BaseModel):
     quantity: int
 
 
-class DeckHeroEntry(BaseModel):
+class DeckMercenaryEntry(BaseModel):
     definition_id: str
 
 
@@ -33,7 +33,7 @@ class DeckConfig(BaseModel):
     name: str
     general_definition_id: str
     troop_entries: list[DeckTroopEntry]
-    hero_entries: list[DeckHeroEntry] = []
+    mercenary_entries: list[DeckMercenaryEntry] = []
     relic_definition_ids: list[str] = []
 
 

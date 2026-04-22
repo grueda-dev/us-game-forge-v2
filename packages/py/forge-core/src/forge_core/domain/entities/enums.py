@@ -27,7 +27,7 @@ class TerrainType(StrEnum):
 
 class CardType(StrEnum):
     TROOP = "TROOP"
-    HERO = "HERO"
+    MERCENARY = "MERCENARY"
     GENERAL = "GENERAL"
     RELIC = "RELIC"
 

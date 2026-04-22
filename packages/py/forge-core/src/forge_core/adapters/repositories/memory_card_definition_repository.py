@@ -2,7 +2,7 @@
 
 from ...domain.entities.card import (
     GeneralCardDefinition,
-    HeroCardDefinition,
+    MercenaryCardDefinition,
     RelicCardDefinition,
     TroopCardDefinition,
 )
@@ -14,7 +14,7 @@ class MemoryCardDefinitionRepository(CardDefinitionRepository):
 
     def __init__(self) -> None:
         self._troop_defs: dict[str, TroopCardDefinition] = {}
-        self._hero_defs: dict[str, HeroCardDefinition] = {}
+        self._mercenary_defs: dict[str, MercenaryCardDefinition] = {}
         self._general_defs: dict[str, GeneralCardDefinition] = {}
         self._relic_defs: dict[str, RelicCardDefinition] = {}
 
@@ -23,8 +23,8 @@ class MemoryCardDefinitionRepository(CardDefinitionRepository):
     async def save_troop_definition(self, defn: TroopCardDefinition) -> None:
         self._troop_defs[defn.definition_id] = defn
 
-    async def save_hero_definition(self, defn: HeroCardDefinition) -> None:
-        self._hero_defs[defn.definition_id] = defn
+    async def save_mercenary_definition(self, defn: MercenaryCardDefinition) -> None:
+        self._mercenary_defs[defn.definition_id] = defn
 
     async def save_general_definition(self, defn: GeneralCardDefinition) -> None:
         self._general_defs[defn.definition_id] = defn
@@ -40,11 +40,11 @@ class MemoryCardDefinitionRepository(CardDefinitionRepository):
     async def list_troop_definitions(self) -> list[TroopCardDefinition]:
         return list(self._troop_defs.values())
 
-    async def get_hero_definition(self, definition_id: str) -> HeroCardDefinition | None:
-        return self._hero_defs.get(definition_id)
+    async def get_mercenary_definition(self, definition_id: str) -> MercenaryCardDefinition | None:
+        return self._mercenary_defs.get(definition_id)
 
-    async def list_hero_definitions(self) -> list[HeroCardDefinition]:
-        return list(self._hero_defs.values())
+    async def list_mercenary_definitions(self) -> list[MercenaryCardDefinition]:
+        return list(self._mercenary_defs.values())
 
     async def get_general_definition(self, definition_id: str) -> GeneralCardDefinition | None:
         return self._general_defs.get(definition_id)

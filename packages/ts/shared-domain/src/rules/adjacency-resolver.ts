@@ -1,7 +1,7 @@
 import type { BattlefieldEntity, BattlefieldSlotEntity } from '../entities/battlefield.entity';
 import type { AoeEffect } from '../entities/troop-card.entity';
 import { TroopCardEntity } from '../entities/troop-card.entity';
-import { HeroCardEntity } from '../entities/hero-card.entity';
+import { MercenaryCardEntity } from '../entities/mercenary-card.entity';
 
 export interface AoeContribution {
   sourceInstanceId: string;
@@ -25,7 +25,7 @@ export function resolveAllAoeContributions(
 
     if (card instanceof TroopCardEntity) {
       aoe = card.getAoeEffect(aoeUnlockLevel);
-    } else if (card instanceof HeroCardEntity) {
+    } else if (card instanceof MercenaryCardEntity) {
       aoe = card.getAoeEffect();
     }
 

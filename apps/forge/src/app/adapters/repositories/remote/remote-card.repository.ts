@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import type { CardInstance, HeroCardInstance } from '@game-forge/shared-schema';
+import type { CardInstance, MercenaryCardInstance } from '@game-forge/shared-schema';
 import { CardRepositoryPort } from '../../../domain/ports/card-repository.port';
 import { environment } from '../../../../environments/environment';
 
@@ -21,11 +21,11 @@ export class RemoteCardRepository extends CardRepositoryPort {
     return this.http.get<CardInstance>(`${this.baseUrl}/instances/${instanceId}`);
   }
 
-  saveHeroInstance(instance: HeroCardInstance): Observable<void> {
-    return this.http.post<void>(`${this.baseUrl}/heroes`, instance);
+  saveMercenaryInstance(instance: MercenaryCardInstance): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/mercenaries`, instance);
   }
 
-  getHeroInstance(instanceId: string): Observable<HeroCardInstance | null> {
-    return this.http.get<HeroCardInstance>(`${this.baseUrl}/heroes/${instanceId}`);
+  getMercenaryInstance(instanceId: string): Observable<MercenaryCardInstance | null> {
+    return this.http.get<MercenaryCardInstance>(`${this.baseUrl}/mercenaries/${instanceId}`);
   }
 }

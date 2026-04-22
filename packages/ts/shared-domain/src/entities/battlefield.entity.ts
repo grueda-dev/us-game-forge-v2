@@ -5,9 +5,9 @@ import {
   type TerrainModifier,
 } from '@game-forge/shared-schema';
 import type { TroopCardEntity } from './troop-card.entity';
-import type { HeroCardEntity } from './hero-card.entity';
+import type { MercenaryCardEntity } from './mercenary-card.entity';
 
-export type PlaceableCard = TroopCardEntity | HeroCardEntity;
+export type PlaceableCard = TroopCardEntity | MercenaryCardEntity;
 
 export class BattlefieldSlotEntity {
   private _occupiedBy: PlaceableCard | null = null;

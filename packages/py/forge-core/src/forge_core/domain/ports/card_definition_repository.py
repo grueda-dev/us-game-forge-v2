@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 
 from ..entities.card import (
     GeneralCardDefinition,
-    HeroCardDefinition,
+    MercenaryCardDefinition,
     RelicCardDefinition,
     TroopCardDefinition,
 )
@@ -26,12 +26,12 @@ class CardDefinitionRepository(ABC):
     async def list_troop_definitions(self) -> list[TroopCardDefinition]: ...
 
     @abstractmethod
-    async def get_hero_definition(
+    async def get_mercenary_definition(
         self, definition_id: str
-    ) -> HeroCardDefinition | None: ...
+    ) -> MercenaryCardDefinition | None: ...
 
     @abstractmethod
-    async def list_hero_definitions(self) -> list[HeroCardDefinition]: ...
+    async def list_mercenary_definitions(self) -> list[MercenaryCardDefinition]: ...
 
     @abstractmethod
     async def get_general_definition(

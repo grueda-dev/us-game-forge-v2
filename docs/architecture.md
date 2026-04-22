@@ -88,10 +88,10 @@ All config types share a `formatVersion` + `id` envelope. Game Forge exports the
 ### Game Mechanics Configs
 - **rules-config** — power calculation step order, XP thresholds, card limits, turn rules
 - **battlefield-config** — grid slots with terrain modifiers
-- **card-definition-catalog** — master list of all card definitions (troops, heroes, generals, relics) with their attributes
+- **card-definition-catalog** — master list of all card definitions (troops, mercenaries, generals, relics) with their attributes
 
 ### Deck Configs
-- **deck-config** — troop/hero/general/relic selections for a specific deck
+- **deck-config** — troop/mercenary/general/relic selections for a specific deck
 - **initial-deck-config** — the starting deck a player receives at game start (links to a deck-config + starting card levels)
 
 ### Campaign & Progression Configs
@@ -102,7 +102,7 @@ All config types share a `formatVersion` + `id` envelope. Game Forge exports the
 - **battle-definition** — links deck + battlefield + rules configs; defines opponent deck; specifies end condition
 - **reward-config** — rewards granted upon completing a battle or campaign:
   - Currency amount
-  - Hero card unlocks
+  - Mercenary card unlocks
   - Relic card unlocks
   - New campaign/battle unlocks
   - XP bonuses
@@ -154,7 +154,7 @@ Export a complete game content bundle (all configs) that the final game loads.
 
 ## Core Domain Entities
 - `TroopCardEntity` — faction, class, basePower, level, experience; adjacency AoE at high levels; N copies allowed per deck (configurable)
-- `HeroCardEntity` — faction, class, basePower, deploymentsRemaining; AoE always active; no leveling
+- `MercenaryCardEntity` — faction, class, basePower, deploymentsRemaining; AoE always active; no leveling
 - `GeneralCardEntity` — faction, class; global battlefield effects
 - `RelicCardEntity` — passive effect + limited active effects per battle
 - `BattlefieldEntity` — grid of `BattlefieldSlotEntity` (each slot has optional terrain modifiers)

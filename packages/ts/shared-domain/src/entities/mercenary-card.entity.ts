@@ -2,8 +2,8 @@ import { Faction, CardClass, CardType } from '@game-forge/shared-schema';
 import { CardInstanceId } from '../value-objects/card-instance-id';
 import type { AoeEffect } from './troop-card.entity';
 
-export class HeroCardEntity {
-  readonly cardType = CardType.HERO;
+export class MercenaryCardEntity {
+  readonly cardType = CardType.MERCENARY;
   readonly instanceId: CardInstanceId;
 
   private _deploymentsRemaining: number;
@@ -36,7 +36,7 @@ export class HeroCardEntity {
 
   deploy(): void {
     if (this.isExhausted) {
-      throw new Error(`Hero "${this.name}" has no deployments remaining`);
+      throw new Error(`Mercenary "${this.name}" has no deployments remaining`);
     }
     this._deploymentsRemaining--;
   }

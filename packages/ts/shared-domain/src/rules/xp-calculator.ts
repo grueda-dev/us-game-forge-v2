@@ -10,7 +10,7 @@ export interface XpGainResult {
 
 /**
  * Awards XP to all participating troop cards after a battle.
- * Heroes do not gain XP.
+ * Mercenaries do not gain XP.
  */
 export function awardBattleXp(
   participatingTroops: TroopCardEntity[],

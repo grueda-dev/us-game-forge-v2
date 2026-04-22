@@ -6,7 +6,7 @@ import type { BattlefieldEntity, BattlefieldSlotEntity } from '../entities/battl
 import type { PlaceableCard } from '../entities/battlefield.entity';
 import type { AoeEffect } from '../entities/troop-card.entity';
 import { TroopCardEntity } from '../entities/troop-card.entity';
-import { HeroCardEntity } from '../entities/hero-card.entity';
+import { MercenaryCardEntity } from '../entities/mercenary-card.entity';
 
 export interface CardPowerBreakdown {
   instanceId: string;
@@ -134,7 +134,7 @@ function calculateAoeBonus(
     let aoe: AoeEffect | null = null;
     if (adjCard instanceof TroopCardEntity) {
       aoe = adjCard.getAoeEffect(aoeUnlockLevel);
-    } else if (adjCard instanceof HeroCardEntity) {
+    } else if (adjCard instanceof MercenaryCardEntity) {
       aoe = adjCard.getAoeEffect();
     }
 

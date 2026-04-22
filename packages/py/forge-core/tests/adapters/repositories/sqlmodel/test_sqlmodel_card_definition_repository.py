@@ -74,9 +74,9 @@ async def test_list_troop_definitions_with_data(repo):
 # ── Stub methods ─────────────────────────────────────────────────
 
 
-async def test_hero_stub_returns_none(repo):
-    assert await repo.get_hero_definition("hero-001") is None
-    assert await repo.list_hero_definitions() == []
+async def test_mercenary_stub_returns_none(repo):
+    assert await repo.get_mercenary_definition("mercenary-001") is None
+    assert await repo.list_mercenary_definitions() == []
 
 
 async def test_general_stub_returns_none(repo):
